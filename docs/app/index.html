@@ -11,14 +11,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Grocery Saver">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#12386b">
+<meta name="theme-color" content="#c2185b">
 <title>Smart Grocery Saver</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #12386b; --navy-gelap: #0c2a52; --latar: #eef1f5; --kad: #fff;
+    --navy: #c2185b; --navy-gelap: #9c1449; --latar: #fbf0f4; --kad: #fff;
     --teks: #1b1f24; --kelabu: #5f6670; --garis: #c9ced6; --jubin: #f2f4f7;
     --merah: #d93025; --hijau: #1e7a3a; --lencana: #e3e8ef; --kuning: #e8a400; --biru: #2a5ea8; --ungu: #6b4fa8;
   }
@@ -27,8 +27,8 @@
   body {
     margin: 0; font-family: "Poppins", system-ui, sans-serif; color: var(--teks); background: var(--latar);
     background-image:
-      radial-gradient(circle at 15% 20%, rgba(18,56,107,.05) 0 120px, transparent 121px),
-      radial-gradient(circle at 85% 75%, rgba(18,56,107,.05) 0 160px, transparent 161px);
+      radial-gradient(circle at 15% 20%, rgba(194,24,91,.05) 0 120px, transparent 121px),
+      radial-gradient(circle at 85% 75%, rgba(194,24,91,.05) 0 160px, transparent 161px);
     min-height: 100vh; padding-bottom: 76px;
   }
   svg.ik { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7;
@@ -36,10 +36,12 @@
 
   /* Header */
   header { background: var(--navy); color: #fff; padding: calc(14px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 14px calc(16px + env(safe-area-inset-left)); position: sticky; top: 0; z-index: 20; }
-  header .dalam { max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
-  header svg.logo { width: 52px; height: 52px; color: #fff; flex-shrink: 0; }
-  header h1 { margin: 0; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  header .sub { font-size: .75rem; color: rgba(255,255,255,.75); margin-top: 2px; }
+  header .dalam { max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  header .dalam > div:nth-child(2) { min-width: 0; flex: 1; }
+  header h1 { overflow: hidden; text-overflow: ellipsis; }
+  header svg.logo { width: 46px; height: 46px; color: #fff; flex-shrink: 0; }
+  header h1 { margin: 0; font-size: clamp(.95rem, 4.5vw, 1.1rem); font-weight: 600; display: block; white-space: nowrap; }
+  header .sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: .72rem; color: rgba(255,255,255,.75); margin-top: 2px; }
   header .versi { font-size: .68rem; font-weight: 500; background: rgba(255,255,255,.16); color: rgba(255,255,255,.9);
                   padding: 2px 8px; border-radius: 999px; letter-spacing: .3px; }
   header .kanan-h { margin-left: auto; display: flex; gap: 6px; }
@@ -49,7 +51,7 @@
   .btn-h:hover { background: rgba(255,255,255,.24); }
 
   main { max-width: 640px; margin: 0 auto; padding: 12px; }
-  .kad { background: var(--kad); border-radius: 16px; padding: 18px 16px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(16,32,64,.08); }
+  .kad { background: var(--kad); border-radius: 16px; padding: 18px 16px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(90,20,50,.08); }
   .kad { scroll-margin-top: calc(92px + env(safe-area-inset-top)); }
   .kad h2 { margin: 0 0 12px; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
   .kad h2 svg.ik { color: var(--navy); }
@@ -60,7 +62,7 @@
   .tersembunyi { display: none !important; }
 
   /* Hero */
-  .hero { background: linear-gradient(135deg, #12386b 0%, #1d4f8f 100%); color: #fff; position: relative; overflow: hidden; }
+  .hero { background: linear-gradient(135deg, #c2185b 0%, #e5407f 100%); color: #fff; position: relative; overflow: hidden; }
   .hero h2 { color: #fff; font-size: 1.2rem; margin-bottom: 6px; }
   .hero p { margin: 0; font-size: .86rem; color: rgba(255,255,255,.85); line-height: 1.55; max-width: 78%; }
   .hero svg.hiasan { position: absolute; right: -14px; bottom: -14px; width: 120px; height: 120px; color: rgba(255,255,255,.14); }
@@ -73,7 +75,7 @@
   .pilihan:first-of-type { padding-top: 0; }
   .bulat { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .bulat svg.ik { width: 24px; height: 24px; }
-  .bulat.p { background: #e7eef8; color: var(--navy); } .bulat.b { background: #e6f4ea; color: var(--hijau); }
+  .bulat.p { background: #fde7ef; color: var(--navy); } .bulat.b { background: #e6f4ea; color: var(--hijau); }
   .bulat.s { background: #fff6dc; color: #7a5500; } .bulat.l { background: #f0ebf9; color: var(--ungu); }
   .pilihan .isi { flex: 1; min-width: 0; }
   .pilihan b { font-size: .95rem; display: block; }
@@ -97,7 +99,7 @@
     width: 100%; padding: 11px 12px; font-size: .95rem; border: 1px solid var(--garis); border-radius: 10px;
     font-family: inherit; color: var(--teks); background: #fff; height: 46px; display: block; min-width: 0;
   }
-  input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(18,56,107,.15); }
+  input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(194,24,91,.15); }
   input::placeholder { color: #9aa1ab; }
   input.salah { border-color: var(--merah); box-shadow: 0 0 0 3px rgba(217,48,37,.12); }
   input:disabled { background: var(--jubin); color: var(--kelabu); }
@@ -112,7 +114,7 @@
   .yt { display: flex; gap: 6px; }
   .yt button { flex: 1; min-height: 46px; border: 1.5px solid var(--garis); border-radius: 10px; background: #fff; cursor: pointer;
                font-weight: 500; font-family: inherit; font-size: .8rem; color: var(--teks); padding: 6px 6px; line-height: 1.3; }
-  .yt button.on { border-color: var(--navy); background: #e7eef8; color: var(--navy); font-weight: 600; }
+  .yt button.on { border-color: var(--navy); background: #fde7ef; color: var(--navy); font-weight: 600; }
   .yt.tiga button { font-size: .76rem; }
 
   .pantas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
@@ -124,13 +126,13 @@
   /* Butang */
   button { font-family: inherit; }
   .btn { padding: 12px 16px; font-size: .95rem; border: 0; border-radius: 10px; cursor: pointer; background: var(--navy); color: #fff;
-         font-weight: 600; width: 100%; margin-top: 12px; box-shadow: 0 2px 4px rgba(12,42,82,.25);
+         font-weight: 600; width: 100%; margin-top: 12px; box-shadow: 0 2px 4px rgba(156,20,73,.25);
          display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
   .btn:hover { background: var(--navy-gelap); }
   .btn.sekunder { background: var(--lencana); color: #3b4350; box-shadow: none; font-weight: 500; }
   .btn.sekunder:hover { background: #d6dde7; }
   .btn.garis { background: #fff; color: var(--navy); border: 1.5px dashed var(--navy); box-shadow: none; }
-  .btn.garis:hover { background: #f3f6fb; }
+  .btn.garis:hover { background: #fdf3f7; }
   .btn.wa { background: #1f9d55; } .btn.wa:hover { background: #18834a; }
   .btn.merah { background: var(--merah); box-shadow: none; } .btn.merah:hover { background: #b3261e; }
   .btn.kecil-b { width: auto; margin-top: 0; padding: 8px 12px; font-size: .82rem; }
@@ -145,7 +147,7 @@
   .stat3 b { display: block; font-size: clamp(.82rem, 3.8vw, 1.05rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .stat3 span { font-size: .7rem; color: var(--kelabu); display: block; line-height: 1.3; }
   .stat3 .hijau b { color: var(--hijau); } .stat3 .merah b { color: var(--merah); } .stat3 .navy b { color: var(--navy); }
-  .stat3 .utama { background: #e7eef8; }
+  .stat3 .utama { background: #fde7ef; }
   .langkah-kerja { counter-reset: lk; margin: 0; padding: 0; list-style: none; }
   .langkah-kerja li { counter-increment: lk; position: relative; padding: 8px 10px 8px 40px; background: var(--jubin);
                       border-radius: 10px; margin-bottom: 6px; font-size: .84rem; line-height: 1.5; color: #2b313a; }
@@ -159,7 +161,7 @@
   .banner { display: flex; gap: 10px; align-items: flex-start; border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; font-size: .84rem; line-height: 1.5; }
   .banner svg.ik { width: 20px; height: 20px; margin-top: 1px; }
   .banner.ok { background: #e6f4ea; color: #175f2d; border: 1px solid #bfe3c9; }
-  .banner.info { background: #eef3fa; color: #2c4a73; border: 1px solid #d3deee; }
+  .banner.info { background: #fdf0f5; color: #8a1442; border: 1px solid #f6cddc; }
   .banner.amaran { background: #fff6dc; color: #7a5500; border: 1px solid #f2d27a; }
   .banner.buruk { background: #fde8e6; color: #a5221a; border: 1px solid #f3b2ab; }
   h3.sub-h { font-size: .9rem; margin: 14px 0 8px; font-weight: 600; }
@@ -185,7 +187,7 @@
   .rekod .jimat.merah { color: var(--merah); }
   .tindakan { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
   .status { font-size: .68rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
-  .status.pct { background: #e7eef8; color: var(--navy); } .status.bxfy { background: #e6f4ea; color: var(--hijau); }
+  .status.pct { background: #fde7ef; color: var(--navy); } .status.bxfy { background: #e6f4ea; color: var(--hijau); }
   .status.multi { background: #fff6dc; color: #7a5500; } .status.second { background: #f0ebf9; color: var(--ungu); }
   .status.mine { background: #fbe9f1; color: #9c2a62; }
   .kosong { text-align: center; color: var(--kelabu); font-size: .85rem; padding: 18px 8px; }
@@ -196,13 +198,13 @@
   details.lipat:first-of-type { padding-top: 0; }
   details.lipat summary { cursor: pointer; font-weight: 600; font-size: .92rem; list-style: none; display: flex; align-items: center; gap: 10px; }
   details.lipat summary::-webkit-details-marker { display: none; }
-  details.lipat summary .no { width: 26px; height: 26px; border-radius: 8px; background: #e7eef8; color: var(--navy); font-size: .78rem;
+  details.lipat summary .no { width: 26px; height: 26px; border-radius: 8px; background: #fde7ef; color: var(--navy); font-size: .78rem;
                               display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   details.lipat summary::after { content: "▾"; color: var(--kelabu); margin-left: auto; }
   details.lipat[open] summary::after { content: "▴"; }
   .pelajaran { font-size: .86rem; line-height: 1.65; color: #2b313a; padding-top: 8px; }
   .pelajaran p { margin: 0 0 8px; }
-  .formula { background: #e7eef8; color: var(--navy); border-radius: 10px; padding: 10px 12px; font-weight: 600; margin: 8px 0; font-size: .86rem; }
+  .formula { background: #fde7ef; color: var(--navy); border-radius: 10px; padding: 10px 12px; font-weight: 600; margin: 8px 0; font-size: .86rem; }
   .contoh { background: var(--jubin); border-radius: 10px; padding: 10px 12px; margin: 8px 0; font-size: .83rem; }
   .contoh b { color: var(--navy); }
   .cuba { border: 1.5px dashed var(--garis); border-radius: 12px; padding: 12px; margin-top: 10px; }
@@ -227,7 +229,7 @@
 
   /* Pembangun & footer */
   .pembangun { max-width: 640px; margin: 4px auto 12px; padding: 0 12px; }
-  .pembangun .kotak-p { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 2px 10px rgba(16,32,64,.08); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .pembangun .kotak-p { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 2px 10px rgba(90,20,50,.08); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .pembangun .maklumat { flex: 1; min-width: 180px; font-size: .85rem; color: var(--kelabu); line-height: 1.5; }
   .pembangun .maklumat b { color: var(--teks); font-size: .95rem; }
   .pembangun .maklumat a { color: var(--navy); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
@@ -240,7 +242,7 @@
 
   /* Nav bawah */
   nav.bawah { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--lencana);
-              box-shadow: 0 -2px 12px rgba(16,32,64,.08); z-index: 30; padding-bottom: env(safe-area-inset-bottom); }
+              box-shadow: 0 -2px 12px rgba(90,20,50,.08); z-index: 30; padding-bottom: env(safe-area-inset-bottom); }
   nav.bawah .dalam { max-width: 640px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
   nav.bawah a { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px 9px; color: var(--kelabu);
                 text-decoration: none; font-size: .68rem; font-weight: 500; position: relative; }
@@ -248,6 +250,43 @@
   nav.bawah a.on { color: var(--navy); font-weight: 600; }
   nav.bawah a.on::before { content: ""; position: absolute; top: 0; left: 25%; right: 25%; height: 3px; border-radius: 0 0 3px 3px; background: var(--navy); }
   nav.bawah .bil { position: absolute; top: 4px; left: 54%; background: var(--merah); color: #fff; font-size: .6rem; border-radius: 999px; padding: 0 5px; line-height: 15px; min-width: 15px; text-align: center; }
+
+  /* v1.1: imbas, troli, kongsi */
+  .btn.imbas-atas { margin: 0 0 4px; }
+  .auto-isi { background: #fff8db !important; border-color: #e8a400 !important; }
+  .trek { height: 12px; background: var(--lencana); border-radius: 6px; overflow: hidden; margin-top: 8px; }
+  .trek .isi { height: 100%; background: var(--hijau); border-radius: 6px; transition: width .3s; }
+  .trek .isi.kuning { background: var(--kuning); } .trek .isi.merah { background: var(--merah); }
+  .bajet-teks { font-size: .8rem; margin-top: 6px; color: #3b4350; }
+  .bajet-teks.merah { color: var(--merah); font-weight: 600; }
+  .item-t { display: grid; grid-template-columns: 26px 1fr auto; gap: 4px 10px; align-items: start; background: var(--jubin);
+            border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
+  .item-t input[type=checkbox] { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--hijau); }
+  .item-t .nm { min-width: 0; }
+  .item-t .nm b { font-size: .9rem; display: block; overflow-wrap: anywhere; }
+  .item-t .nm span { font-size: .74rem; color: var(--kelabu); display: block; }
+  .item-t .nm .jk { color: var(--hijau); font-weight: 600; }
+  .item-t .buang { background: none; border: 0; color: var(--kelabu); cursor: pointer; padding: 2px; }
+  .item-t .buang:hover { color: var(--merah); }
+  .item-t .bawah-t { grid-column: 2 / 4; display: flex; justify-content: space-between; align-items: center; }
+  .item-t.ambil { opacity: .6; } .item-t.ambil .nm b { text-decoration: line-through; }
+  .kuant { display: inline-flex; align-items: center; border: 1px solid var(--garis); border-radius: 999px; background: #fff; }
+  .kuant button { width: 34px; height: 30px; border: 0; background: none; font-size: 1.1rem; cursor: pointer; color: var(--navy); font-weight: 600; }
+  .kuant span { min-width: 26px; text-align: center; font-weight: 600; font-size: .88rem; }
+  .jum-t { font-weight: 700; font-size: .95rem; }
+  .aksi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .aksi-grid .btn { margin-top: 0; font-size: .86rem; padding: 11px 8px; }
+  .aksi-grid .penuh { grid-column: 1 / -1; }
+  .pratonton { width: 100%; border-radius: 12px; border: 1px solid var(--garis); display: block; margin: 8px 0; max-height: 52vh; object-fit: contain; background: var(--jubin); }
+  .cip-baris { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .cip { font-size: .78rem; background: #fff8db; border: 1px solid #f2d27a; color: #5c4300; border-radius: 8px; padding: 4px 8px; }
+  .cip b { font-weight: 600; }
+  .status-imbas { display: flex; align-items: center; gap: 10px; font-size: .85rem; color: #3b4350; padding: 10px 0; }
+  .putar { width: 22px; height: 22px; border: 3px solid var(--lencana); border-top-color: var(--navy); border-radius: 50%; animation: putar .8s linear infinite; flex-shrink: 0; }
+  @keyframes putar { to { transform: rotate(360deg); } }
+  details.mentah summary { font-size: .78rem; color: var(--kelabu); cursor: pointer; }
+  details.mentah pre { white-space: pre-wrap; font-size: .72rem; background: var(--jubin); border-radius: 8px; padding: 8px; max-height: 140px; overflow: auto; margin: 6px 0 0; }
+  nav.bawah .bil.hijau { background: var(--hijau); }
 </style>
 </head>
 <body>
@@ -258,16 +297,16 @@
       <path d="M7 24h46l-1.6 8"/>
       <path d="M10 24l5 24a3 3 0 0 0 3 2.4h14"/>
       <path d="M19 30v13M26 30v13M33 30v6"/>
-      <circle cx="46" cy="45" r="13" style="fill:#12386b"/>
+      <circle cx="46" cy="45" r="13" style="fill:#c2185b"/>
       <text x="46" y="49.5" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" stroke="none" font-family="Poppins, sans-serif">%</text>
     </svg>
     <div>
-      <h1>Smart Grocery Saver <span class="versi">v1.0</span></h1>
+      <h1>Smart Grocery Saver</h1>
       <div class="sub" data-t="subTajuk"></div>
     </div>
     <div class="kanan-h">
+      <button class="btn-h" onclick="mulaImbas()" data-tt="imbas"><span data-ik="kamera"></span></button>
       <button class="btn-h" id="btnBahasa" onclick="tukarBahasa()" title="Bahasa / Language">BM</button>
-      <a class="btn-h" href="#learn" data-tt="belajar"><span data-ik="buku"></span></a>
     </div>
   </div>
 </header>
@@ -312,6 +351,22 @@
           <a class="btn" href="#samples"><span data-t="bukaSam"></span></a>
         </div>
       </div>
+      <div class="pilihan">
+        <div class="bulat b"><span data-ik="troli"></span></div>
+        <div class="isi">
+          <b data-t="kTroliTajuk"></b>
+          <p data-t="kTroliDesc"></p>
+          <a class="btn" href="#troli"><span data-t="bukaTroli"></span></a>
+        </div>
+      </div>
+      <div class="pilihan">
+        <div class="bulat l"><span data-ik="kamera"></span></div>
+        <div class="isi">
+          <b data-t="imbas"></b>
+          <p data-t="imbasDesc"></p>
+          <button class="btn" onclick="mulaImbas()"><span data-ik="kamera"></span><span data-t="bukaImbas"></span></button>
+        </div>
+      </div>
     </section>
 
     <section class="kad">
@@ -327,7 +382,8 @@
   <div id="v-percent" class="paparan tersembunyi">
     <section class="kad">
       <h2><span data-ik="peratus"></span><span data-t="kPctTajuk"></span></h2>
-      <div class="yt" id="ytPct">
+      <button class="btn garis imbas-atas" onclick="mulaImbas()"><span data-ik="kamera"></span><span data-t="bukaImbas"></span></button>
+      <div class="yt" id="ytPct" style="margin-top:10px">
         <button data-mod="tahu" class="on" onclick="modPct('tahu')" data-t="modTahu"></button>
         <button data-mod="jual" onclick="modPct('jual')" data-t="modJual"></button>
       </div>
@@ -372,7 +428,8 @@
   <div id="v-b1f1" class="paparan tersembunyi">
     <section class="kad">
       <h2><span data-ik="hadiah"></span><span data-t="kPekTajuk"></span></h2>
-      <div class="yt tiga" id="ytPek">
+      <button class="btn garis imbas-atas" onclick="mulaImbas()"><span data-ik="kamera"></span><span data-t="bukaImbas"></span></button>
+      <div class="yt tiga" id="ytPek" style="margin-top:10px">
         <button data-mod="bxfy" class="on" onclick="modPek('bxfy')" data-t="jBxfy"></button>
         <button data-mod="multi" onclick="modPek('multi')" data-t="jMulti"></button>
         <button data-mod="second" onclick="modPek('second')" data-t="jSecond"></button>
@@ -443,6 +500,34 @@
     </section>
   </div>
 
+  <!-- ================= TROLI ================= -->
+  <div id="v-troli" class="paparan tersembunyi">
+    <section class="kad">
+      <div class="kepala-kad"><h2><span data-ik="troli"></span><span data-t="kTroliTajuk"></span></h2><span class="kecil" id="bilAmbil"></span></div>
+      <div class="stat3" id="statTroli"></div>
+      <label class="tajuk" style="margin-top:0"><span data-t="bajet"></span> <i data-t="pilihan"></i></label>
+      <div class="medan ada-awalan"><span class="awalan">RM</span><input id="bajet" inputmode="decimal" placeholder="100.00" onchange="simpanBajet()"></div>
+      <div id="bajetBar"></div>
+      <div class="nota" data-t="nota5sen"></div>
+    </section>
+
+    <section class="kad">
+      <h2><span data-ik="nota"></span><span data-t="senaraiTroli"></span></h2>
+      <div id="senaraiTroli"></div>
+      <h3 class="sub-h" data-t="tambahItem"></h3>
+      <div class="medan"><input id="tNama" maxlength="60" data-tp="contohNama"></div>
+      <div class="baris" style="margin-top:8px">
+        <div class="medan ada-awalan"><span class="awalan">RM</span><input id="tHarga" inputmode="decimal" data-tp="hargaItem"></div>
+        <div class="medan sempit"><input id="tQ" inputmode="numeric" value="1" aria-label="Qty"></div>
+      </div>
+      <button class="btn" onclick="tambahManual()"><span data-ik="tambah"></span><span data-t="tambahItem"></span></button>
+      <div class="aksi-grid" id="aksiTroli">
+        <button class="btn garis" onclick="kongsiTroli()"><span data-ik="kongsi"></span><span data-t="kongsi"></span></button>
+        <button class="btn sekunder" onclick="kosongkanTroli()"><span data-ik="padam"></span><span data-t="kosongTroli"></span></button>
+      </div>
+    </section>
+  </div>
+
   <!-- ================= LEARN ================= -->
   <div id="v-learn" class="paparan tersembunyi">
     <section class="kad">
@@ -468,9 +553,9 @@
   <div class="dalam">
     <a href="#home" data-v="home"><span data-ik="rumah"></span><span data-t="navHome"></span></a>
     <a href="#percent" data-v="percent"><span data-ik="peratus"></span><span data-t="navPct"></span></a>
-    <a href="#b1f1" data-v="b1f1"><span data-ik="troli"></span><span>B1F1</span></a>
+    <a href="#b1f1" data-v="b1f1"><span data-ik="hadiah"></span><span>B1F1</span></a>
+    <a href="#troli" data-v="troli"><span data-ik="troli"></span><span data-t="navTroli"></span><span class="bil hijau tersembunyi" id="bilTroli"></span></a>
     <a href="#samples" data-v="samples"><span data-ik="tag"></span><span data-t="navSam"></span><span class="bil tersembunyi" id="bilSimpan"></span></a>
-    <a href="#learn" data-v="learn"><span data-ik="buku"></span><span data-t="navLearn"></span></a>
   </div>
 </nav>
 
@@ -489,9 +574,32 @@
 <div id="modalPadam" class="modal tersembunyi" onclick="if (event.target === this) tutup('modalPadam')">
   <div class="kotak">
     <div class="ikon-amaran"><span data-ik="padam"></span></div>
-    <h3 data-t="padamTajuk"></h3>
+    <h3 id="padamTajuk"></h3>
     <p id="padamTeks"></p>
     <div class="baris"><button class="btn sekunder" onclick="tutup('modalPadam')" data-t="batal"></button><button class="btn merah" onclick="sahPadam()" data-t="padam"></button></div>
+  </div>
+</div>
+
+<!-- Modal imbas -->
+<input type="file" id="failImbas" accept="image/*" capture="environment" class="tersembunyi" onchange="failDipilih(this)">
+<div id="modalImbas" class="modal tersembunyi" onclick="if (event.target === this) tutup('modalImbas')">
+  <div class="kotak">
+    <h3 data-t="imbasTajuk"></h3>
+    <img id="imbasImej" class="pratonton" alt="">
+    <div id="imbasIsi"></div>
+  </div>
+</div>
+
+<!-- Modal kongsi -->
+<div id="modalKongsi" class="modal tersembunyi" onclick="if (event.target === this) tutup('modalKongsi')">
+  <div class="kotak">
+    <h3 data-t="kongsiTajuk"></h3>
+    <img id="kongsiImej" class="pratonton" alt="">
+    <p class="kecil" data-t="kongsiNota"></p>
+    <button class="btn" id="btnKongsiGambar" onclick="kongsiGambar()"><span data-ik="kongsi"></span><span data-t="kongsiGambar"></span></button>
+    <a class="btn wa" id="kongsiWa" href="#" target="_blank" rel="noopener"><span data-ik="wa"></span><span data-t="kongsiWa"></span></a>
+    <a class="btn sekunder" id="kongsiMuat" href="#" download="smart-grocery-saver.png"><span data-ik="muat"></span><span data-t="simpanGambar"></span></a>
+    <button class="btn sekunder" onclick="tutup('modalKongsi')" data-t="tutup"></button>
   </div>
 </div>
 
@@ -530,6 +638,9 @@ const IKON = {
   sekolah: '<path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/>',
   telefon: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
   hati: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+  kamera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  kongsi: '<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/>',
+  tambah: '<path d="M12 5v14M5 12h14"/>',
   wa: '<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c-.4 2.9 2.8 6.4 6 6.3l.9-1.5-1.9-1-1 .7a4 4 0 0 1-2-2l.7-1-1-1.9z"/>'
 };
 const ik = n => `<svg class="ik" viewBox="0 0 24 24">${IKON[n] || ''}</svg>`;
@@ -631,7 +742,25 @@ const L = {
     dibangunkan: 'Developed by', derma: 'Donate',
     dermaTajuk: 'Support this app ❤️', dermaTeks: 'Smart Grocery Saver is free. If it helps you or your students, a donation helps keep it maintained.',
     dermaCara: 'Screenshot this QR code, then scan it with your bank or e-wallet app (DuitNow QR).', hubungiWa: 'Contact via WhatsApp', dermaKepada: 'Donation to:',
-    kaki: 'Smart Grocery Saver · Free for learning · Calculations run on your device', panduan: 'Guide &amp; install'
+    imbas: 'Scan price label', imbasDesc: 'Snap a photo of a shelf label and the numbers are filled in for you. Needs internet the first time.',
+    bukaImbas: 'Scan a label', kTroliTajuk: 'Trolley & budget', kTroliDesc: 'Add items as you shop and watch your total, savings and budget. Cash total rounded to 5 sen.',
+    bukaTroli: 'Open trolley', navTroli: 'Trolley', bajet: 'Budget', jumlahTroli: 'Total', jimatTroli: 'You saved', tunai: 'Cash (rounded)',
+    bakiBajet: '{0} left of your {1} budget', lebihBajet: '{0} over budget!', tambahItem: 'Add item', hargaItem: 'Price',
+    troliKosong: 'Your trolley is empty. Add items below, or tap “Add to trolley” after a calculation.',
+    tambahKeTroli: 'Add to trolley', ditambahTroli: 'Added to trolley: {0}', kongsi: 'Share', kosongTroli: 'Empty trolley',
+    kosongTroliTajuk: 'Empty the trolley?', kosongTroliTanya: 'All {0} items will be removed.', dikosongkan: 'Trolley emptied.',
+    nota5sen: 'Cash bills are rounded to the nearest 5 sen (e.g. RM 7.92 → RM 7.90). Card & e-wallet pay the exact total.',
+    senaraiTroli: 'Shopping list', dipilih: '{0}/{1} picked', rHargaItem: 'Please fill in the item price.', buangItem: 'Remove',
+    kongsiTajuk: 'Share result', kongsiGambar: 'Share image', simpanGambar: 'Save image', kongsiWa: 'Send as text on WhatsApp',
+    kongsiNota: 'Tip: press and hold the image to save or copy it.', dikiraDengan: 'Calculated with Smart Grocery Saver',
+    imbasTajuk: 'Scan price label', imbasMuat: 'Loading the text reader (first time only)…', imbasBaca: 'Reading the label… {0}%',
+    imbasGagal: 'The text reader could not load. Check your internet connection and try again.',
+    imbasTiada: 'No prices or discounts found. Take the photo closer, straight on, with good light.',
+    imbasDapat: 'Found on the label', imbasSemak: 'The reader can misread numbers — check the yellow fields before tapping Calculate.',
+    isiPct: 'Fill Percent calculator', isiPek: 'Fill B1F1 calculator', teksDikesan: 'Text read from the photo', cubaLagi: 'Take another photo',
+    cNama: 'Name', cHarga: 'Price', cDiskaun: 'Discount', cSaiz: 'Size', cPromo: 'Promo', diisi: 'Filled from the label — please check the yellow fields.',
+    troliTajukKongsi: 'My shopping list', item: 'items',
+    kaki: 'Smart Grocery Saver v1.1 · Free for learning · Calculations run on your device', panduan: 'Guide &amp; install'
   },
   ms: {
     subTajuk: 'Kalkulator promosi pasar raya',
@@ -718,7 +847,25 @@ const L = {
     dibangunkan: 'Dibangunkan oleh', derma: 'Derma',
     dermaTajuk: 'Sokong app ini ❤️', dermaTeks: 'Smart Grocery Saver adalah percuma. Jika ia membantu anda atau murid anda, sumbangan anda membantu penyelenggaraannya.',
     dermaCara: 'Tangkap layar kod QR ini, kemudian imbas melalui app bank atau e-wallet (DuitNow QR).', hubungiWa: 'Hubungi melalui WhatsApp', dermaKepada: 'Derma kepada:',
-    kaki: 'Smart Grocery Saver · Percuma untuk pembelajaran · Pengiraan dibuat dalam peranti anda', panduan: 'Panduan &amp; pasang'
+    imbas: 'Imbas label harga', imbasDesc: 'Ambil gambar label harga di rak, nombor diisi untuk anda. Perlu internet kali pertama.',
+    bukaImbas: 'Imbas label', kTroliTajuk: 'Troli & bajet', kTroliDesc: 'Tambah barang semasa membeli dan pantau jumlah, penjimatan dan bajet. Jumlah tunai dibundarkan ke 5 sen.',
+    bukaTroli: 'Buka troli', navTroli: 'Troli', bajet: 'Bajet', jumlahTroli: 'Jumlah', jimatTroli: 'Anda jimat', tunai: 'Tunai (dibundar)',
+    bakiBajet: 'Baki {0} daripada bajet {1}', lebihBajet: 'Melebihi bajet sebanyak {0}!', tambahItem: 'Tambah barang', hargaItem: 'Harga',
+    troliKosong: 'Troli masih kosong. Tambah barang di bawah, atau tekan “Tambah ke troli” selepas mengira.',
+    tambahKeTroli: 'Tambah ke troli', ditambahTroli: 'Ditambah ke troli: {0}', kongsi: 'Kongsi', kosongTroli: 'Kosongkan troli',
+    kosongTroliTajuk: 'Kosongkan troli?', kosongTroliTanya: 'Kesemua {0} barang akan dibuang.', dikosongkan: 'Troli dikosongkan.',
+    nota5sen: 'Bil tunai dibundarkan kepada 5 sen terdekat (cth. RM 7.92 → RM 7.90). Kad & e-wallet bayar jumlah tepat.',
+    senaraiTroli: 'Senarai belian', dipilih: '{0}/{1} sudah diambil', rHargaItem: 'Sila isi harga barang.', buangItem: 'Buang',
+    kongsiTajuk: 'Kongsi keputusan', kongsiGambar: 'Kongsi gambar', simpanGambar: 'Simpan gambar', kongsiWa: 'Hantar teks melalui WhatsApp',
+    kongsiNota: 'Tip: tekan lama pada gambar untuk simpan atau salin.', dikiraDengan: 'Dikira dengan Smart Grocery Saver',
+    imbasTajuk: 'Imbas label harga', imbasMuat: 'Memuatkan pembaca teks (kali pertama sahaja)…', imbasBaca: 'Membaca label… {0}%',
+    imbasGagal: 'Pembaca teks tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.',
+    imbasTiada: 'Tiada harga atau diskaun dikesan. Ambil gambar lebih dekat, lurus dan terang.',
+    imbasDapat: 'Dikesan pada label', imbasSemak: 'Pembaca boleh tersilap baca nombor — semak medan kuning sebelum tekan Kira.',
+    isiPct: 'Isi kalkulator Peratus', isiPek: 'Isi kalkulator B1F1', teksDikesan: 'Teks yang dibaca daripada gambar', cubaLagi: 'Ambil gambar lain',
+    cNama: 'Nama', cHarga: 'Harga', cDiskaun: 'Diskaun', cSaiz: 'Saiz', cPromo: 'Promosi', diisi: 'Diisi daripada label — sila semak medan kuning.',
+    troliTajukKongsi: 'Senarai belian saya', item: 'barang',
+    kaki: 'Smart Grocery Saver v1.1 · Percuma untuk pembelajaran · Pengiraan dibuat dalam peranti anda', panduan: 'Panduan &amp; pasang'
   }
 };
 
@@ -968,8 +1115,15 @@ function kiraPct(senyap) {
   h += `<div><b>${pc(r.eff)}%</b><span>${t('diskaunSebenar')}</span></div></div>`;
   h += banner('ok', 'semak', t('v_pctBaik', rm(r.jimat)) + (r.kadar != null ? `<br>${t('kadarUnit')}: <b>${rm4(r.kadar)}</b> ${t('perUnit', r.b.lbl)}` : ''));
   h += `<h3 class="sub-h">${t('langkahKerja')}</h3>` + senaraiLangkah(langkahPct(i, r));
-  h += `<button class="btn garis" onclick="bukaSimpan('pct')">${ik('simpan')}<span>${t('simpanKeSampel')}</span></button>`;
-  hasilTerakhir = { jenis: 'pct', inp: { mod: i.mod, asal: i.asal, jual: i.jual, d: i.d, e: i.e, saiz: i.saiz, unit: i.unit }, nama: i.nama };
+  h += butangHasil();
+  const inpP = { mod: i.mod, asal: i.asal, jual: i.jual, d: i.d, e: i.e, saiz: i.saiz, unit: i.unit };
+  const langP = langkahPct(i, r);
+  hasilTerakhir = { jenis: 'pct', inp: inpP, nama: i.nama,
+    troli: { nama: i.nama || t('kPctTajuk'), harga: r2(r.jual), normal: r2(r.asal), label: labelPromo({ jenis: 'pct', inp: inpP }) },
+    kongsi: { tajuk: i.nama || t('kPctTajuk'), sub: labelPromo({ jenis: 'pct', inp: inpP }),
+      stat: [[(tahu ? '' : '≈ ') + rm(tahu ? r.jual : r.asal), tahu ? t('hargaJual') : t('asalAnggaran'), 'navy'], [rm(r.jimat), t('andaJimat'), 'hijau'], [pc(r.eff) + '%', t('diskaunSebenar'), '']],
+      banner: teksBiasa(t('v_pctBaik', rm(r.jimat))) + (r.kadar != null ? ' · ' + t('kadarUnit') + ': ' + rm4(r.kadar) + ' ' + t('perUnit', r.b.lbl) : ''),
+      langkah: langP } };
   const k = $('hasilPct'); k.innerHTML = h; k.classList.remove('tersembunyi');
   if (!senyap) k.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -1042,12 +1196,19 @@ function kiraPek(senyap) {
     h += banner('info', 'timbang', `${t('kadarUnit')}: <b>${rm4(r.kadar)}</b> ${t('perUnit', r.b.lbl)} (${t('promo').toLowerCase()}) · ${rm4(r.kadarNormal)} (normal)`);
   }
   h += `<h3 class="sub-h">${t('langkahKerja')}</h3>` + senaraiLangkah(langkahPek(i, r));
-  h += `<button class="btn garis" onclick="bukaSimpan('pek')">${ik('simpan')}<span>${t('simpanKeSampel')}</span></button>`;
+  h += butangHasil();
   const inp = { harga: i.harga, saiz: i.saiz, unit: i.unit };
   if (i.jenis === 'bxfy') Object.assign(inp, { x: i.x, y: i.y });
   if (i.jenis === 'multi') Object.assign(inp, { n: i.n, jumlah: i.jumlah });
   if (i.jenis === 'second') Object.assign(inp, { d2: i.d2 });
-  hasilTerakhir = { jenis: i.jenis, inp, nama: i.nama };
+  const lblK = labelPromo({ jenis: i.jenis, inp });
+  let bannerK = r.jimat > 0.004 ? t('v_baik', rm(r.jimat), pc(r.pct), r.pek) : r.jimat < -0.004 ? t('v_buruk', rm(-r.jimat)) : t('v_sama');
+  if (r.kadarB != null) bannerK += ' ' + (r.kadar < r.kadarB - 1e-9 ? t('v_bandingPromo', r.b.lbl, rm4(Math.abs(r.kadar - r.kadarB))) : r.kadarB < r.kadar - 1e-9 ? t('v_bandingLain', r.b.lbl, rm4(Math.abs(r.kadar - r.kadarB))) : t('v_bandingSama', r.b.lbl));
+  hasilTerakhir = { jenis: i.jenis, inp, nama: i.nama,
+    troli: { nama: i.nama || t('kPekTajuk'), harga: r2(r.bayar), normal: r2(r.normal), label: lblK + ' · ' + r.pek + ' ' + t('pek') },
+    kongsi: { tajuk: i.nama || t('kPekTajuk'), sub: lblK,
+      stat: [[rm(r.bayar), t('bayar'), 'navy'], [r.pek + ' ' + t('pek'), t('dapat'), ''], [rm(r.sebenar), t('hargaSebenar'), r.jimat < -0.004 ? 'merah' : 'hijau']],
+      banner: teksBiasa(bannerK), buruk: r.jimat < -0.004, langkah: langkahPek(i, r) } };
   const k = $('hasilPek'); k.innerHTML = h; k.classList.remove('tersembunyi');
   if (!senyap) k.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -1062,6 +1223,8 @@ $('bUnit') && $('bUnit').addEventListener('change', () => { $('unitB').textConte
 function bacaSimpanan() { try { const a = JSON.parse(bacaLs('sgs_simpan') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
 function tulisSimpanan(a) { simpanLs('sgs_simpan', JSON.stringify(a)); kemasBil(); }
 function kemasBil() {
+  const tr = bacaTroli(), q = tr.item.reduce((a, x) => a + x.q, 0), eb = $('bilTroli');
+  eb.textContent = q > 99 ? '99+' : q; eb.classList.toggle('tersembunyi', !q);
   const n = bacaSimpanan().length, el = $('bilSimpan');
   el.textContent = n; el.classList.toggle('tersembunyi', !n);
 }
@@ -1078,16 +1241,18 @@ function sahSimpan() {
   tulisSimpanan(a.slice(0, 50));
   tutup('modalSimpan'); mesej(t('disimpan'));
 }
-let idPadam = null;
-function padamSimpan(id) {
-  const s = bacaSimpanan().find(x => x.id === id); if (!s) return;
-  idPadam = id; $('padamTeks').textContent = t('padamTeks', s.nama);
+let tindakanSah = null;
+function tanyaSah(tajuk, teks, fn) {
+  $('padamTajuk').textContent = tajuk; $('padamTeks').textContent = teks; tindakanSah = fn;
   $('modalPadam').classList.remove('tersembunyi');
 }
-function sahPadam() {
-  tulisSimpanan(bacaSimpanan().filter(x => x.id !== idPadam));
-  tutup('modalPadam'); lukisSampel(); mesej(t('dipadam'));
+function padamSimpan(id) {
+  const s = bacaSimpanan().find(x => x.id === id); if (!s) return;
+  tanyaSah(t('padamTajuk'), t('padamTeks', s.nama), () => {
+    tulisSimpanan(bacaSimpanan().filter(x => x.id !== id)); lukisSampel(); mesej(t('dipadam'));
+  });
 }
+function sahPadam() { tutup('modalPadam'); if (tindakanSah) tindakanSah(); tindakanSah = null; }
 
 /* ---------- Sampel ---------- */
 let tapisan = 'semua';
@@ -1186,6 +1351,415 @@ function semakJawapan(n) {
   m.textContent = ok ? t('betul') : t('salah', String(p.a % 1 ? p.a.toFixed(2) : p.a));
 }
 
+/* ---------- Butang keputusan (v1.1) ---------- */
+function butangHasil() {
+  return `<div class="aksi-grid">
+    <button class="btn penuh" onclick="tambahKeTroli()">${ik('troli')}<span>${t('tambahKeTroli')}</span></button>
+    <button class="btn garis" onclick="bukaKongsi()">${ik('kongsi')}<span>${t('kongsi')}</span></button>
+    <button class="btn garis" onclick="bukaSimpan()">${ik('simpan')}<span>${t('simpanKeSampel')}</span></button>
+  </div>`;
+}
+function teksBiasa(h) { const d = document.createElement('div'); d.innerHTML = String(h || ''); return d.textContent.replace(/\s+/g, ' ').trim(); }
+
+/* ---------- Troli & bajet ---------- */
+const bundar5 = n => Math.round(r2(n) * 20) / 20;
+function bacaTroli() {
+  try {
+    const o = JSON.parse(bacaLs('sgs_troli') || '{}');
+    return { bajet: o.bajet > 0 ? o.bajet : null, item: Array.isArray(o.item) ? o.item.filter(x => x && x.harga >= 0 && x.q > 0) : [] };
+  } catch (e) { return { bajet: null, item: [] }; }
+}
+function tulisTroli(tr) { simpanLs('sgs_troli', JSON.stringify(tr)); kemasBil(); }
+function jumlahTroli(tr) {
+  const jumlah = tr.item.reduce((a, x) => a + x.harga * x.q, 0);
+  const normal = tr.item.reduce((a, x) => a + Math.max(x.normal || x.harga, x.harga) * x.q, 0);
+  return { jumlah: r2(jumlah), jimat: r2(normal - jumlah), tunai: bundar5(jumlah) };
+}
+function tambahItemTroli(it) {
+  const tr = bacaTroli();
+  const sama = tr.item.find(x => x.nama === it.nama && Math.abs(x.harga - it.harga) < 0.001 && (x.label || '') === (it.label || ''));
+  if (sama) sama.q += it.q || 1;
+  else tr.item.push({ id: 't' + Date.now() + Math.random().toString(36).slice(2, 6), nama: it.nama, harga: it.harga,
+                      normal: it.normal || it.harga, label: it.label || '', q: it.q || 1, ambil: false });
+  tulisTroli(tr);
+}
+function tambahKeTroli() {
+  if (!hasilTerakhir || !hasilTerakhir.troli) return;
+  tambahItemTroli(hasilTerakhir.troli);
+  mesej(t('ditambahTroli', hasilTerakhir.troli.nama));
+}
+function tambahManual() {
+  const harga = baca('tHarga'), q = Math.max(1, Math.round(baca('tQ') || 1));
+  if (harga == null || !(harga > 0)) { tandaSalah(['tHarga']); mesej(t('rHargaItem'), 'ralat'); return; }
+  tandaSalah([]);
+  tambahItemTroli({ nama: $('tNama').value.trim() || t('item'), harga: r2(harga), q });
+  $('tNama').value = ''; $('tHarga').value = ''; $('tQ').value = 1;
+  lukisTroli(); $('tNama').focus();
+}
+function ubahQ(id, d) {
+  const tr = bacaTroli(), x = tr.item.find(y => y.id === id); if (!x) return;
+  x.q = Math.max(1, x.q + d); tulisTroli(tr); lukisTroli();
+}
+function togolAmbil(id) {
+  const tr = bacaTroli(), x = tr.item.find(y => y.id === id); if (!x) return;
+  x.ambil = !x.ambil; tulisTroli(tr); lukisTroli();
+}
+function buangItem(id) {
+  const tr = bacaTroli(); tr.item = tr.item.filter(y => y.id !== id); tulisTroli(tr); lukisTroli();
+}
+function simpanBajet() {
+  const tr = bacaTroli(), v = baca('bajet');
+  tr.bajet = v > 0 ? r2(v) : null; tulisTroli(tr); lukisTroli();
+}
+function kosongkanTroli() {
+  const tr = bacaTroli(); if (!tr.item.length) return;
+  tanyaSah(t('kosongTroliTajuk'), t('kosongTroliTanya', tr.item.length), () => {
+    const b = bacaTroli(); b.item = []; tulisTroli(b); lukisTroli(); mesej(t('dikosongkan'));
+  });
+}
+function lukisTroli() {
+  if (!$('statTroli')) return;
+  const tr = bacaTroli(), j = jumlahTroli(tr);
+  $('statTroli').innerHTML = `<div class="utama navy"><b>${rm(j.jumlah)}</b><span>${t('jumlahTroli')}</span></div>
+    <div class="hijau"><b>${rm(j.jimat)}</b><span>${t('jimatTroli')}</span></div>
+    <div><b>${rm(j.tunai)}</b><span>${t('tunai')}</span></div>`;
+  if (document.activeElement !== $('bajet')) $('bajet').value = tr.bajet ? tr.bajet.toFixed(2) : '';
+  if (tr.bajet) {
+    const nisbah = j.jumlah / tr.bajet, lebih = j.jumlah - tr.bajet;
+    $('bajetBar').innerHTML = `<div class="trek"><div class="isi ${nisbah > 1 ? 'merah' : nisbah > .8 ? 'kuning' : ''}" style="width:${Math.min(100, nisbah * 100).toFixed(1)}%"></div></div>
+      <div class="bajet-teks ${lebih > 0.004 ? 'merah' : ''}">${lebih > 0.004 ? t('lebihBajet', rm(lebih)) : t('bakiBajet', rm(tr.bajet - j.jumlah), rm(tr.bajet))}</div>`;
+  } else $('bajetBar').innerHTML = '';
+  const ambil = tr.item.filter(x => x.ambil).length;
+  $('bilAmbil').textContent = tr.item.length ? t('dipilih', ambil, tr.item.length) : '';
+  $('aksiTroli').classList.toggle('tersembunyi', !tr.item.length);
+  if (!tr.item.length) { $('senaraiTroli').innerHTML = `<div class="kosong">${t('troliKosong')}</div>`; return; }
+  $('senaraiTroli').innerHTML = tr.item.map(x => {
+    const jim = r2((Math.max(x.normal || x.harga, x.harga) - x.harga) * x.q);
+    return `<div class="item-t${x.ambil ? ' ambil' : ''}">
+      <input type="checkbox" ${x.ambil ? 'checked' : ''} onchange="togolAmbil('${x.id}')" aria-label="✓">
+      <div class="nm"><b>${esc(x.nama)}</b><span>${x.label ? esc(x.label) + ' · ' : ''}${rm(x.harga)}${jim > 0 ? ` · <span class="jk" style="display:inline">${t('jimatTroli')} ${rm(jim)}</span>` : ''}</span></div>
+      <button class="buang" onclick="buangItem('${x.id}')" title="${t('buangItem')}">${ik('padam')}</button>
+      <div class="bawah-t">
+        <div class="kuant"><button onclick="ubahQ('${x.id}',-1)" aria-label="−">−</button><span>${x.q}</span><button onclick="ubahQ('${x.id}',1)" aria-label="+">+</button></div>
+        <div class="jum-t">${rm(x.harga * x.q)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- Kongsi sebagai gambar ---------- */
+const URL_APP = 'https://g-03355699-tech.github.io/smart-grocery-saver-farhana/app/';
+let dataKongsi = null, failKongsi = null, urlKongsi = null;
+function balut(ctx, teks, lebar) {
+  const kata = String(teks).split(' '), baris = []; let b = '';
+  for (const k of kata) {
+    const cuba = b ? b + ' ' + k : k;
+    if (ctx.measureText(cuba).width > lebar && b) { baris.push(b); b = k; } else b = cuba;
+  }
+  if (b) baris.push(b);
+  return baris;
+}
+function kotakBulat(ctx, x, y, w, h, r, warna) {
+  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); ctx.fillStyle = warna; ctx.fill();
+}
+function lukisKad(ctx, d, lukis) {
+  const W = 1080, P = 56, F = (w, s) => `${w} ${s}px Poppins, system-ui, -apple-system, sans-serif`;
+  const WARNA = { navy: '#c2185b', hijau: '#1e7a3a', merah: '#d93025', '': '#1b1f24' };
+  let y = 0;
+  if (lukis) {
+    ctx.fillStyle = '#c2185b'; ctx.fillRect(0, 0, W, 168);
+    ctx.save(); ctx.translate(P - 6, 30); ctx.scale(1.7, 1.7);
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ['M17 24a13 13 0 0 1 26 0', 'M7 24h46l-1.6 8', 'M10 24l5 24a3 3 0 0 0 3 2.4h14', 'M19 30v13M26 30v13M33 30v6'].forEach(p => ctx.stroke(new Path2D(p)));
+    ctx.beginPath(); ctx.arc(46, 45, 13, 0, Math.PI * 2); ctx.fillStyle = '#c2185b'; ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.font = F(700, 13); ctx.textAlign = 'center'; ctx.fillText('%', 46, 49.5); ctx.textAlign = 'left';
+    ctx.restore();
+    ctx.fillStyle = '#fff'; ctx.font = F(700, 44); ctx.fillText('Smart Grocery Saver', P + 120, 82);
+    ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.font = F(400, 28); ctx.fillText(t('subTajuk'), P + 120, 124);
+  }
+  y = 168 + 64;
+  ctx.font = F(700, 42);
+  for (const b of balut(ctx, d.tajuk, W - 2 * P)) { if (lukis) { ctx.fillStyle = '#1b1f24'; ctx.fillText(b, P, y); } y += 54; }
+  if (d.sub) {
+    ctx.font = F(400, 28);
+    for (const b of balut(ctx, d.sub, W - 2 * P)) { if (lukis) { ctx.fillStyle = '#5f6670'; ctx.fillText(b, P, y - 6); } y += 40; }
+  }
+  y += 10;
+  // statistik
+  const g = 18, kw = (W - 2 * P - 2 * g) / 3, kh = 150;
+  d.stat.forEach((st, n) => {
+    const x = P + n * (kw + g);
+    if (lukis) {
+      kotakBulat(ctx, x, y, kw, kh, 22, n === 0 ? '#fde7ef' : '#f2f4f7');
+      ctx.fillStyle = WARNA[st[2]] || '#1b1f24'; ctx.font = F(700, 40);
+      let nilai = st[0]; while (ctx.measureText(nilai).width > kw - 36 && nilai.length > 3) nilai = nilai.slice(0, -1);
+      ctx.fillText(nilai, x + 22, y + 66);
+      ctx.fillStyle = '#5f6670'; ctx.font = F(400, 24);
+      balut(ctx, st[1], kw - 40).slice(0, 2).forEach((b, i) => ctx.fillText(b, x + 22, y + 104 + i * 30));
+    }
+  });
+  y += kh + 24;
+  // banner
+  if (d.banner) {
+    ctx.font = F(500, 28);
+    const bb = balut(ctx, d.banner, W - 2 * P - 48), bh = bb.length * 40 + 36;
+    if (lukis) {
+      kotakBulat(ctx, P, y, W - 2 * P, bh, 20, d.buruk ? '#fde8e6' : '#e6f4ea');
+      ctx.fillStyle = d.buruk ? '#a5221a' : '#175f2d';
+      bb.forEach((b, i) => ctx.fillText(b, P + 24, y + 46 + i * 40));
+    }
+    y += bh + 28;
+  }
+  // langkah
+  if (d.langkah && d.langkah.length) {
+    if (lukis) { ctx.fillStyle = '#1b1f24'; ctx.font = F(600, 32); ctx.fillText(d.tajukLangkah || t('langkahKerja'), P, y + 10); }
+    y += 38;
+    d.langkah.forEach((l, n) => {
+      const jenis = typeof l === 'string' ? '' : l.k, teks = teksBiasa(typeof l === 'string' ? l : l.h);
+      ctx.font = F(400, 26);
+      const bb = balut(ctx, teks, W - 2 * P - 96), bh = bb.length * 37 + 26;
+      if (lukis) {
+        kotakBulat(ctx, P, y, W - 2 * P, bh, 16, jenis === 'semak-l' ? '#e6f4ea' : jenis === 'silap' ? '#fff6dc' : '#f2f4f7');
+        ctx.beginPath(); ctx.arc(P + 38, y + 34, 17, 0, Math.PI * 2);
+        ctx.fillStyle = jenis === 'semak-l' ? '#1e7a3a' : jenis === 'silap' ? '#e8a400' : '#c2185b'; ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.font = F(600, 20); ctx.textAlign = 'center';
+        ctx.fillText(jenis === 'semak-l' ? '✓' : jenis === 'silap' ? '!' : String(n + 1), P + 38, y + 41); ctx.textAlign = 'left';
+        ctx.fillStyle = '#2b313a'; ctx.font = F(400, 26);
+        bb.forEach((b, i) => ctx.fillText(b, P + 72, y + 42 + i * 37));
+      }
+      y += bh + 10;
+    });
+  }
+  // kaki
+  y += 24;
+  if (lukis) {
+    ctx.fillStyle = '#e3e8ef'; ctx.fillRect(P, y, W - 2 * P, 2);
+    ctx.fillStyle = '#5f6670'; ctx.font = F(500, 24); ctx.fillText(t('dikiraDengan'), P, y + 46);
+    ctx.fillStyle = '#c2185b'; ctx.font = F(400, 22); ctx.fillText(URL_APP.replace('https://', ''), P, y + 80);
+  }
+  return y + 112;
+}
+async function janaGambar(d) {
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
+  const c = document.createElement('canvas'); c.width = 1080; c.height = 10;
+  const h = lukisKad(c.getContext('2d'), d, false);
+  c.height = Math.ceil(h);
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+  lukisKad(ctx, d, true);
+  return c;
+}
+function teksWa(d) {
+  const L = ['*' + d.tajuk + '*'];
+  if (d.sub) L.push(d.sub);
+  L.push('');
+  d.stat.forEach(s => L.push(s[1] + ': *' + s[0] + '*'));
+  if (d.banner) L.push('', d.banner);
+  if (d.barisWa) L.push('', ...d.barisWa);
+  L.push('', t('dikiraDengan'), URL_APP);
+  return L.join('\n');
+}
+async function bukaKongsiData(d) {
+  dataKongsi = d;
+  const c = await janaGambar(d);
+  const url = c.toDataURL('image/png');
+  $('kongsiImej').src = url;
+  if (urlKongsi) URL.revokeObjectURL(urlKongsi);
+  failKongsi = null; urlKongsi = null;
+  c.toBlob(b => {
+    if (!b) return;
+    failKongsi = new File([b], 'smart-grocery-saver.png', { type: 'image/png' });
+    urlKongsi = URL.createObjectURL(b);
+    $('kongsiMuat').href = urlKongsi;
+    let boleh = false;
+    try { boleh = !!(navigator.canShare && navigator.canShare({ files: [failKongsi] })); } catch (e) {}
+    $('btnKongsiGambar').classList.toggle('tersembunyi', !boleh);
+  }, 'image/png');
+  $('btnKongsiGambar').classList.add('tersembunyi');
+  $('kongsiWa').href = 'https://wa.me/?text=' + encodeURIComponent(teksWa(d));
+  $('modalKongsi').classList.remove('tersembunyi');
+}
+function bukaKongsi() { if (hasilTerakhir && hasilTerakhir.kongsi) bukaKongsiData(hasilTerakhir.kongsi); }
+async function kongsiGambar() {
+  if (!failKongsi) return;
+  try { await navigator.share({ files: [failKongsi], title: 'Smart Grocery Saver', text: dataKongsi ? dataKongsi.tajuk : '' }); }
+  catch (e) { if (e && e.name !== 'AbortError') mesej(e.message || 'Share failed', 'ralat'); }
+}
+function kongsiTroli() {
+  const tr = bacaTroli(); if (!tr.item.length) return;
+  const j = jumlahTroli(tr), d = new Date();
+  const baris = tr.item.map(x => `${x.q} × ${x.nama}${x.label ? ' (' + x.label + ')' : ''} — ${rm(x.harga * x.q)}`);
+  let banner = '';
+  if (tr.bajet) banner = j.jumlah - tr.bajet > 0.004 ? t('lebihBajet', rm(j.jumlah - tr.bajet)) : t('bakiBajet', rm(tr.bajet - j.jumlah), rm(tr.bajet));
+  bukaKongsiData({
+    tajuk: t('troliTajukKongsi'), sub: d.toLocaleDateString(BAHASA === 'ms' ? 'ms-MY' : 'en-MY', { day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + tr.item.length + ' ' + t('item'),
+    stat: [[rm(j.jumlah), t('jumlahTroli'), 'navy'], [rm(j.jimat), t('jimatTroli'), 'hijau'], [rm(j.tunai), t('tunai'), '']],
+    banner, buruk: tr.bajet && j.jumlah > tr.bajet, tajukLangkah: t('senaraiTroli'), langkah: baris, barisWa: baris.map(b => '• ' + b)
+  });
+}
+
+/* ---------- Imbas label (OCR) ---------- */
+let janjiTess = null, pekerjaOcr = null, hasilImbas = null;
+function muatTesseract() {
+  if (window.Tesseract) return Promise.resolve();
+  if (!janjiTess) janjiTess = new Promise((ok, ko) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+    sc.onload = ok; sc.onerror = () => { janjiTess = null; ko(new Error('muat')); };
+    document.head.appendChild(sc);
+  });
+  return janjiTess;
+}
+function mulaImbas() { $('failImbas').value = ''; $('failImbas').click(); }
+function statusImbas(teks, putar) {
+  $('imbasIsi').innerHTML = `<div class="status-imbas">${putar ? '<div class="putar"></div>' : ''}<span>${teks}</span></div>`;
+}
+function sediaImej(fail) {
+  return new Promise((ok, ko) => {
+    const url = URL.createObjectURL(fail), img = new Image();
+    img.onload = () => {
+      const maks = 1600, sk = Math.min(1, maks / Math.max(img.width, img.height));
+      const c = document.createElement('canvas'); c.width = Math.round(img.width * sk); c.height = Math.round(img.height * sk);
+      const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, c.width, c.height);
+      // kelabu + kontras untuk bantu OCR
+      const dt = ctx.getImageData(0, 0, c.width, c.height), p = dt.data;
+      for (let i = 0; i < p.length; i += 4) {
+        let g = 0.299 * p[i] + 0.587 * p[i + 1] + 0.114 * p[i + 2];
+        g = Math.max(0, Math.min(255, (g - 128) * 1.35 + 128));
+        p[i] = p[i + 1] = p[i + 2] = g;
+      }
+      ctx.putImageData(dt, 0, 0);
+      $('imbasImej').src = url;
+      ok(c);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); ko(new Error('imej')); };
+    img.src = url;
+  });
+}
+async function failDipilih(input) {
+  const fail = input.files && input.files[0]; if (!fail) return;
+  $('modalImbas').classList.remove('tersembunyi');
+  statusImbas(t('imbasMuat'), true);
+  let kanvas;
+  try { kanvas = await sediaImej(fail); } catch (e) { statusImbas(t('imbasTiada')); return; }
+  try {
+    await muatTesseract();
+    if (!pekerjaOcr) {
+      pekerjaOcr = await Tesseract.createWorker('eng', 1, {
+        logger: m => { if (m.status === 'recognizing text') statusImbas(t('imbasBaca', Math.round((m.progress || 0) * 100)), true); }
+      });
+    }
+    statusImbas(t('imbasBaca', 0), true);
+    const { data } = await pekerjaOcr.recognize(kanvas);
+    paparImbas(data.text || '');
+  } catch (e) {
+    pekerjaOcr = null;
+    $('imbasIsi').innerHTML = `<div class="banner buruk">${ik('amaran')}<div>${t('imbasGagal')}</div></div>
+      <button class="btn sekunder" onclick="mulaImbas()">${ik('kamera')}<span>${t('cubaLagi')}</span></button>`;
+  }
+}
+function huraiLabel(teks) {
+  const asli = String(teks || '').replace(/\r/g, '');
+  const U = asli.toUpperCase().replace(/[‘’`]/g, "'").replace(/[Oo](?=\d)/g, '0');
+  const nom = v => parseFloat(String(v).replace(',', '.'));
+  const h = { harga: [], d: null, x: null, y: null, n: null, jumlah: null, d2: null, saiz: null, unit: null, nama: '', jenis: null, mod: null, asal: null, jual: null, hargaSeunit: null };
+  let m = U.match(/(\d{1,4}(?:[.,]\d{1,3})?)\s?(KG|GM|GRAM|G|ML|LTR|LITRE|LITER|L)\b/);
+  if (m) { const u = m[2]; h.saiz = nom(m[1]); h.unit = /^K/.test(u) ? 'kg' : /^G/.test(u) ? 'g' : u === 'ML' ? 'ml' : 'L'; }
+  m = U.match(/(?:BUY|BELI)\s*(\d{1,2})\s*(?:FREE|PERCUMA|FOC|GET|DAPAT)\s*(\d{1,2})/) || U.match(/\bB\s?(\d)\s?F\s?(\d)\b/);
+  if (m && +m[1] > 0 && +m[2] > 0) { h.jenis = 'bxfy'; h.x = +m[1]; h.y = +m[2]; }
+  if (!h.jenis) {
+    m = U.match(/\b(\d{1,2})\s*(?:FOR|UNTUK|\/)\s*RM\s?(\d{1,4}(?:[.,]\d{1,2})?)/);
+    if (m && +m[1] >= 2) { h.jenis = 'multi'; h.n = +m[1]; h.jumlah = nom(m[2]); }
+  }
+  if (!h.jenis) {
+    m = U.match(/(?:2ND|SECOND|KEDUA|KE-?\s?2)[^%\n]{0,25}?(\d{1,3})\s?%/);
+    if (m && +m[1] > 0 && +m[1] <= 100) { h.jenis = 'second'; h.d2 = +m[1]; }
+    else if (/(?:2ND|SECOND|KEDUA|KE-?\s?2)[^\n]{0,30}(?:HALF|SEPARUH)/.test(U)) { h.jenis = 'second'; h.d2 = 50; }
+  }
+  if (h.jenis !== 'second') {
+    m = U.match(/(\d{1,2}(?:[.,]\d)?)\s?%/);
+    if (m && nom(m[1]) > 0 && nom(m[1]) < 100) h.d = nom(m[1]);
+  }
+  const set = [];
+  const tambah = v => { if (v > 0 && v < 100000 && !set.some(x => Math.abs(x - v) < 0.001)) set.push(v); };
+  for (const k of U.matchAll(/RM\s?(\d{1,5}(?:[.,]\d{1,2})?)/g)) tambah(nom(k[1]));
+  for (const k of U.matchAll(/(^|[^\d.,])(\d{1,4}[.,]\d{2})(?!\d)(?!\s?(?:KG|GM|G\b|ML|LTR|L\b|%))/g)) tambah(nom(k[2]));
+  h.harga = set.filter(v => !(h.jumlah != null && Math.abs(v - h.jumlah) < 0.001));
+  const KATA = /\b(RM|OFF|SAVE|JIMAT|PROMO|PROMOTION|HARGA|PRICE|BUY|BELI|FREE|PERCUMA|NOW|WAS|ONLY|SAHAJA|DISKAUN|DISCOUNT|EACH|SETIAP|VALID|SAH|UNTIL|HINGGA|SPECIAL|ISTIMEWA|MEMBER|AHLI|PROMOSI|OFFER|TAWARAN|DEAL|DEALS)\b/;
+  for (const b0 of asli.split('\n')) {
+    const b = b0.trim(), huruf = (b.match(/[A-Za-z]/g) || []).length;
+    if (huruf >= 4 && huruf / b.length > 0.45 && !KATA.test(b.toUpperCase())) {
+      h.nama = b.replace(/[^A-Za-z0-9 .&'\-\/()]/g, '').replace(/\s+/g, ' ').trim().toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase()).slice(0, 60);
+      break;
+    }
+  }
+  if (!h.jenis) h.jenis = 'pct';
+  if (h.jenis === 'pct') {
+    const hs = h.harga.slice(0, 3);
+    if (hs.length >= 2) {
+      h.mod = 'tahu'; h.asal = Math.max(...hs); h.jual = Math.min(...hs);
+      if (h.d == null && h.asal > h.jual) h.d = Math.round((h.asal - h.jual) / h.asal * 1000) / 10;
+    } else if (hs.length === 1) {
+      h.mod = /\b(NOW|SEKARANG|ONLY|SAHAJA|PROMO PRICE|HARGA PROMO)\b/.test(U) && h.d != null ? 'jual' : 'tahu';
+      if (h.mod === 'tahu') h.asal = hs[0]; else h.jual = hs[0];
+    }
+  } else {
+    h.hargaSeunit = h.harga.length ? (h.jenis === 'multi' ? Math.max(...h.harga) : h.harga[0]) : null;
+  }
+  h.kosong = !h.harga.length && h.d == null && h.jumlah == null && h.jenis === 'pct';
+  return h;
+}
+function paparImbas(teks) {
+  const h = huraiLabel(teks); hasilImbas = h;
+  const mentah = `<details class="mentah"><summary>${t('teksDikesan')}</summary><pre>${esc(teks.trim() || '—')}</pre></details>`;
+  if (h.kosong) {
+    $('imbasIsi').innerHTML = `<div class="banner amaran">${ik('amaran')}<div>${t('imbasTiada')}</div></div>${mentah}
+      <button class="btn" onclick="mulaImbas()">${ik('kamera')}<span>${t('cubaLagi')}</span></button>`;
+    return;
+  }
+  const cip = [];
+  if (h.nama) cip.push([t('cNama'), esc(h.nama)]);
+  h.harga.slice(0, 4).forEach(v => cip.push([t('cHarga'), rm(v)]));
+  if (h.d != null) cip.push([t('cDiskaun'), nb(h.d) + '%']);
+  if (h.jenis !== 'pct') cip.push([t('cPromo'), esc(labelPromo({ jenis: h.jenis, inp: { x: h.x, y: h.y, n: h.n, jumlah: h.jumlah, d2: h.d2, harga: h.hargaSeunit || 0 } }).split(' · ')[0])]);
+  if (h.saiz) cip.push([t('cSaiz'), nb(h.saiz) + ' ' + h.unit]);
+  const utamaPct = h.jenis === 'pct';
+  $('imbasIsi').innerHTML = `<b style="font-size:.86rem">${t('imbasDapat')}</b>
+    <div class="cip-baris">${cip.map(c => `<span class="cip">${c[0]}: <b>${c[1]}</b></span>`).join('')}</div>
+    <p class="nota" style="margin:0 0 4px">${t('imbasSemak')}</p>
+    <button class="btn" onclick="isiDariLabel('${utamaPct ? 'pct' : 'pek'}')">${ik('kalkulator')}<span>${t(utamaPct ? 'isiPct' : 'isiPek')}</span></button>
+    <div class="aksi-grid">
+      <button class="btn sekunder" onclick="isiDariLabel('${utamaPct ? 'pek' : 'pct'}')"><span>${t(utamaPct ? 'isiPek' : 'isiPct')}</span></button>
+      <button class="btn sekunder" onclick="mulaImbas()">${ik('kamera')}<span>${t('cubaLagi')}</span></button>
+    </div>${mentah}`;
+}
+function isiDariLabel(sasaran) {
+  const h = hasilImbas; if (!h) return;
+  const isi = (id, v) => { if (v == null || v === '') return; $(id).value = v; $(id).classList.add('auto-isi'); };
+  if (sasaran === 'pct') {
+    kosongPct(); modPct(h.mod || 'tahu');
+    isi('pNama', h.nama);
+    isi('pAsal', h.asal != null ? h.asal.toFixed(2) : (h.mod !== 'jual' && h.harga[0] ? h.harga[0].toFixed(2) : null));
+    isi('pJual', h.jual != null && h.mod === 'jual' ? h.jual.toFixed(2) : null);
+    isi('pDiskaun', h.d);
+    if (h.saiz) { isi('pSaiz', h.saiz); $('pUnit').value = h.unit; }
+    tandaPantas(); location.hash = 'percent';
+  } else {
+    kosongPek(); modPek(h.jenis === 'pct' ? 'bxfy' : h.jenis);
+    isi('bNama', h.nama);
+    const hs = h.hargaSeunit != null ? h.hargaSeunit : (h.harga.length ? Math.max(...h.harga) : null);
+    isi('bHarga', hs != null ? hs.toFixed(2) : null);
+    if (h.saiz) { isi('bSaiz', h.saiz); $('bUnit').value = h.unit; $('unitB').textContent = '(' + h.unit + ')'; }
+    if (h.jenis === 'bxfy') { isi('bX', h.x); isi('bY', h.y); }
+    if (h.jenis === 'multi') { isi('bN', h.n); isi('bJumlah', h.jumlah != null ? h.jumlah.toFixed(2) : null); }
+    if (h.jenis === 'second') isi('bD2', h.d2);
+    location.hash = 'b1f1';
+  }
+  tutup('modalImbas');
+  setTimeout(() => mesej(t('diisi')), 50);
+}
+
 /* ---------- Bahasa & navigasi ---------- */
 function terjemah() {
   document.documentElement.lang = BAHASA === 'ms' ? 'ms' : 'en';
@@ -1193,19 +1767,20 @@ function terjemah() {
   document.querySelectorAll('[data-tp]').forEach(el => { el.placeholder = t(el.dataset.tp); });
   document.querySelectorAll('[data-tt]').forEach(el => { el.title = t(el.dataset.tt); });
   $('btnBahasa').textContent = BAHASA === 'ms' ? 'EN' : 'BM';
-  lukisPelajaran(); lukisSampel();
+  lukisPelajaran(); lukisSampel(); lukisTroli();
   if (!$('hasilPct').classList.contains('tersembunyi')) kiraPct(true);
   if (!$('hasilPek').classList.contains('tersembunyi')) kiraPek(true);
 }
 function tukarBahasa() { BAHASA = BAHASA === 'ms' ? 'en' : 'ms'; simpanLs('sgs_bahasa', BAHASA); terjemah(); }
 
-const PAPARAN = ['home', 'percent', 'b1f1', 'samples', 'learn'];
+const PAPARAN = ['home', 'percent', 'b1f1', 'troli', 'samples', 'learn'];
 function laluan() {
   const h = (location.hash || '').replace('#', '');
   const v = PAPARAN.includes(h) ? h : 'home';
   PAPARAN.forEach(p => $('v-' + p).classList.toggle('tersembunyi', p !== v));
   document.querySelectorAll('nav.bawah a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
   if (v === 'samples') lukisSampel();
+  if (v === 'troli') lukisTroli();
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', laluan);
@@ -1213,6 +1788,8 @@ $('pDiskaun').addEventListener('input', tandaPantas);
 document.querySelectorAll('#v-percent input').forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') kiraPct(); }));
 document.querySelectorAll('#v-b1f1 input').forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') kiraPek(); }));
 $('simpanNama').addEventListener('keydown', e => { if (e.key === 'Enter') sahSimpan(); });
+['tNama', 'tHarga', 'tQ'].forEach(id => $(id).addEventListener('keydown', e => { if (e.key === 'Enter') tambahManual(); }));
+document.addEventListener('input', e => { if (e.target.classList && e.target.classList.contains('auto-isi')) e.target.classList.remove('auto-isi'); });
 
 pasangIkon();
 terjemah();

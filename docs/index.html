@@ -8,13 +8,13 @@
 <meta property="og:title" content="Smart Grocery Saver">
 <meta property="og:description" content="Betulkah promosi itu berbaloi? Kalkulator diskaun, B1F1 & kadar unit dengan langkah kerja. Percuma.">
 <meta property="og:image" content="https://g-03355699-tech.github.io/smart-grocery-saver-farhana/skrin-1.jpg">
-<meta name="theme-color" content="#12386b">
+<meta name="theme-color" content="#c2185b">
 <link rel="apple-touch-icon" href="app/ikon-180.png">
 <link rel="icon" type="image/png" href="app/ikon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#12386b;--latar:#eef1f5;--teks:#1b1f24;--kelabu:#5f6670;--jubin:#f2f4f7;--hijau:#1f9d55}
+:root{--navy:#c2185b;--latar:#fbf0f4;--teks:#1b1f24;--kelabu:#5f6670;--jubin:#f2f4f7;--hijau:#1f9d55}
 *{box-sizing:border-box}
 body{margin:0;font-family:Poppins,system-ui,sans-serif;color:var(--teks);background:var(--latar);line-height:1.6}
 a{color:var(--navy)}
@@ -39,34 +39,35 @@ section{padding:56px 0}
 h2{font-size:1.6rem;margin:0 0 6px}
 .sub{color:var(--kelabu);margin:0 0 28px}
 .grid-ciri{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.ciri{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(16,32,64,.06)}
+.ciri{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(90,20,50,.06)}
 .ciri svg.ik{color:var(--navy);width:30px;height:30px}
 .ciri h3{font-size:1rem;margin:10px 0 4px}
+.baru{font-size:.62rem;background:#e6f4ea;color:#1e7a3a;padding:2px 7px;border-radius:999px;vertical-align:middle;font-weight:600}
 .ciri p{margin:0;font-size:.88rem;color:var(--kelabu)}
 .skrin{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.skrin figure{margin:0;background:#fff;border-radius:18px;padding:10px;box-shadow:0 2px 10px rgba(16,32,64,.06)}
+.skrin figure{margin:0;background:#fff;border-radius:18px;padding:10px;box-shadow:0 2px 10px rgba(90,20,50,.06)}
 .skrin img{width:100%;border-radius:12px;display:block}
 .skrin figcaption{font-size:.82rem;color:var(--kelabu);text-align:center;margin-top:8px}
 .langkah{counter-reset:l;display:grid;gap:14px}
-.l{background:#fff;border-radius:16px;padding:20px 20px 20px 68px;position:relative;box-shadow:0 2px 10px rgba(16,32,64,.06)}
+.l{background:#fff;border-radius:16px;padding:20px 20px 20px 68px;position:relative;box-shadow:0 2px 10px rgba(90,20,50,.06)}
 .l::before{counter-increment:l;content:counter(l);position:absolute;left:20px;top:20px;width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;font-weight:600;display:flex;align-items:center;justify-content:center}
 .l h3{margin:0 0 4px;font-size:1rem} .l p,.l li{margin:0;color:#3b4350;font-size:.92rem}
 .l ol{margin:6px 0 0;padding-left:20px}
 .dua{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.kotak{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(16,32,64,.06)}
+.kotak{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(90,20,50,.06)}
 .kotak h3{margin:0 0 6px;font-size:1rem;display:flex;align-items:center;gap:8px}
 .kotak ol{margin:0;padding-left:20px;font-size:.92rem;color:#3b4350}
 .kotak li{margin-bottom:4px}
-.jadual{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(16,32,64,.06);font-size:.9rem}
+.jadual{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(90,20,50,.06);font-size:.9rem}
 .jadual th,.jadual td{padding:12px 14px;text-align:left;border-bottom:1px solid #e3e8ef;vertical-align:top}
-.jadual th{background:#e7eef8;color:var(--navy);font-weight:600}
+.jadual th{background:#fde7ef;color:var(--navy);font-weight:600}
 .jadual tr:last-child td{border-bottom:0}
-.privasi{background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 10px rgba(16,32,64,.06)}
+.privasi{background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 10px rgba(90,20,50,.06)}
 .privasi h3{font-size:1rem;margin:20px 0 4px} .privasi h3:first-of-type{margin-top:0}
 .privasi p{font-size:.92rem;color:#3b4350;margin:0}
-.nota{background:#eef3fa;border:1px solid #d3deee;color:#2c4a73;border-radius:12px;padding:12px 14px;font-size:.88rem;margin-top:14px}
+.nota{background:#fdf0f5;border:1px solid #f6cddc;color:#8a1442;border-radius:12px;padding:12px 14px;font-size:.88rem;margin-top:14px}
 code{background:var(--jubin);padding:1px 6px;border-radius:5px;font-size:.85em}
-.pembangun{background:#fff;border-radius:18px;padding:22px;box-shadow:0 2px 10px rgba(16,32,64,.06);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.pembangun{background:#fff;border-radius:18px;padding:22px;box-shadow:0 2px 10px rgba(90,20,50,.06);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .pembangun img{width:130px;border-radius:12px;border:1px solid #c9ced6}
 .pembangun .m{flex:1;min-width:220px;font-size:.92rem;color:#3b4350}
 .btn-wa{display:inline-flex;align-items:center;gap:8px;background:var(--hijau);color:#fff;text-decoration:none;font-weight:600;padding:10px 16px;border-radius:10px;margin-top:8px}
@@ -87,6 +88,9 @@ footer{text-align:center;color:var(--kelabu);font-size:.85rem;padding:30px 20px 
 <symbol id="i-luar" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><path d="M3 3l18 18"/></symbol>
 <symbol id="i-kunci" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
 <symbol id="i-apple" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+<symbol id="i-kamera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-troli" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20.5" r="1"/><circle cx="17" cy="20.5" r="1"/></symbol>
+<symbol id="i-kongsi" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
 <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c-.4 2.9 2.8 6.4 6 6.3l.9-1.5-1.9-1-1 .7a4 4 0 0 1-2-2l.7-1-1-1.9z"/></symbol>
 </svg>
 
@@ -96,10 +100,10 @@ footer{text-align:center;color:var(--kelabu);font-size:.85rem;padding:30px 20px 
       <div>
         <svg class="logo" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 24a13 13 0 0 1 26 0"/><path d="M7 24h46l-1.6 8"/><path d="M10 24l5 24a3 3 0 0 0 3 2.4h14"/><path d="M19 30v13M26 30v13M33 30v6"/>
-          <circle cx="46" cy="45" r="13" style="fill:#12386b"/>
+          <circle cx="46" cy="45" r="13" style="fill:#c2185b"/>
           <text x="46" y="49.5" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" stroke="none" font-family="Poppins, sans-serif">%</text>
         </svg>
-        <h1>Smart Grocery Saver <span class="versi">v1.0</span></h1>
+        <h1>Smart Grocery Saver <span class="versi">v1.1</span></h1>
         <p class="lead">Betulkah promosi itu berbaloi? Masukkan nombor dari label harga di rak dan lihat penjimatan sebenar dalam RM — <b>lengkap dengan langkah kerja</b>. Matematik kehidupan sebenar untuk murid Tingkatan 1–3. <b>Percuma</b>, tiada log masuk, berfungsi tanpa internet selepas dipasang.</p>
         <div class="aksi">
           <a class="butang" href="app/">Buka App →</a>
@@ -121,11 +125,14 @@ footer{text-align:center;color:var(--kelabu);font-size:.85rem;padding:30px 20px 
       <div class="ciri"><svg class="ik"><use href="#i-peratus"/></svg><h3>Peratus songsang</h3><p>Hanya tahu harga jualan? App mencari harga asal: harga jualan ÷ (1 − %), dan menunjukkan kesilapan biasa “tambah semula 20%”.</p></div>
       <div class="ciri"><svg class="ik"><use href="#i-hadiah"/></svg><h3>B1F1 &amp; pek berbilang</h3><p>Beli X Percuma Y, “2 untuk RM13.50”, atau item ke-2 separuh harga — harga sebenar sepek dan % penjimatan.</p></div>
       <div class="ciri"><svg class="ik"><use href="#i-timbang"/></svg><h3>Kadar unit</h3><p>RM setiap 100 g / 100 ml / sebiji. Bandingkan promosi dengan pek saiz lain — adakah pek besar lebih murah?</p></div>
+      <div class="ciri"><svg class="ik"><use href="#i-kamera"/></svg><h3>Imbas label harga <span class="baru">BAHARU</span></h3><p>Ambil gambar label di rak — harga, % diskaun, promosi B1F1 dan saiz pek dibaca dan diisi ke kalkulator untuk disemak.</p></div>
+      <div class="ciri"><svg class="ik"><use href="#i-troli"/></svg><h3>Troli &amp; bajet <span class="baru">BAHARU</span></h3><p>Tambah barang semasa membeli. Pantau jumlah, penjimatan, baki bajet, dan jumlah tunai dibundarkan ke 5 sen.</p></div>
+      <div class="ciri"><svg class="ik"><use href="#i-kongsi"/></svg><h3>Kongsi ke WhatsApp <span class="baru">BAHARU</span></h3><p>Keputusan dan senarai belian dijadikan gambar kemas lengkap dengan langkah kerja — atau dihantar sebagai teks.</p></div>
       <div class="ciri"><svg class="ik"><use href="#i-langkah"/></svg><h3>Langkah kerja</h3><p>Setiap jawapan disertakan langkah bernombor, semakan, dan amaran kesilapan biasa — sesuai untuk ditunjukkan di kelas.</p></div>
       <div class="ciri"><svg class="ik"><use href="#i-tag"/></svg><h3>Perbandingan sampel</h3><p>13 contoh promosi (harga rekaan). Tapis ikut jenis, susun ikut % jimat atau kadar unit, dan muatkan ke kalkulator.</p></div>
       <div class="ciri"><svg class="ik"><use href="#i-buku"/></svg><h3>Belajar dahulu</h3><p>6 pelajaran ringkas dengan contoh dan soalan “Cuba” yang disemak terus.</p></div>
       <div class="ciri"><svg class="ik"><use href="#i-bahasa"/></svg><h3>BM / English</h3><p>Tukar bahasa dengan satu tekanan — sesuai untuk kelas DLP dan bukan DLP.</p></div>
-      <div class="ciri"><svg class="ik"><use href="#i-luar"/></svg><h3>Tanpa internet</h3><p>Selepas dibuka sekali, app boleh digunakan di dalam pasar raya walaupun tiada liputan.</p></div>
+      <div class="ciri"><svg class="ik"><use href="#i-luar"/></svg><h3>Tanpa internet</h3><p>Selepas dibuka sekali, kalkulator dan troli boleh digunakan di dalam pasar raya walaupun tiada liputan. (Imbas label perlu internet kali pertama.)</p></div>
     </div>
   </div>
 </section>
@@ -135,7 +142,7 @@ footer{text-align:center;color:var(--kelabu);font-size:.85rem;padding:30px 20px 
     <div class="skrin">
       <figure><img src="skrin-1.jpg" alt="Halaman utama Smart Grocery Saver" loading="lazy"><figcaption>Pilih kalkulator</figcaption></figure>
       <figure><img src="skrin-2.jpg" alt="Keputusan diskaun peratus dengan langkah kerja" loading="lazy"><figcaption>Diskaun bertindih &amp; langkah kerja</figcaption></figure>
-      <figure><img src="skrin-3.jpg" alt="Keputusan Beli 2 Percuma 1 dengan perbandingan kadar unit" loading="lazy"><figcaption>B2F1 lawan pek besar</figcaption></figure>
+      <figure><img src="skrin-3.jpg" alt="Troli dengan bajet dan jumlah tunai" loading="lazy"><figcaption>Troli &amp; bajet</figcaption></figure>
     </div>
   </div>
 </section>
@@ -203,6 +210,7 @@ footer{text-align:center;color:var(--kelabu);font-size:.85rem;padding:30px 20px 
     <p class="sub">Tiada akaun, tiada pelayan, tiada pengumpulan data.</p>
     <div class="privasi">
       <h3>Di mana data disimpan?</h3><p>Semua pengiraan dibuat dalam pelayar telefon. Item yang disimpan ke <i>Sampel</i> dan pilihan bahasa disimpan dalam storan pelayar (<code>localStorage</code>) peranti itu sahaja — tidak dihantar ke mana-mana.</p>
+      <h3>Gambar label</h3><p>Gambar yang diimbas dibaca dalam telefon anda (Tesseract.js) dan tidak dimuat naik ke mana-mana. Kali pertama, pembaca teks dimuat turun daripada jsDelivr.</p>
       <h3>Harga sampel</h3><p>Harga dalam senarai sampel adalah <b>rekaan untuk latihan</b>, bukan harga sebenar mana-mana kedai.</p>
       <h3>Membuang data</h3><p>Tekan ikon tong sampah pada item simpanan, atau kosongkan data laman ini dalam tetapan pelayar.</p>
     </div>

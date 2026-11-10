@@ -1,4 +1,4 @@
-# 🧺 Smart Grocery Saver `v1.0`
+# 🧺 Smart Grocery Saver `v1.1`
 
 Web app percuma untuk menyemak sama ada **promosi pasar raya benar-benar berbaloi** — diskaun peratus, Beli 1 Percuma 1, pek berbilang dan kadar unit — **lengkap dengan langkah kerja**. Dibina untuk pembelajaran matematik kehidupan sebenar (Tingkatan 1–3). Dwibahasa BM / English.
 
@@ -8,6 +8,9 @@ Web app percuma untuk menyemak sama ada **promosi pasar raya benar-benar berbalo
 
 ## Ciri-ciri
 
+- **Imbas label harga** *(v1.1)* — ambil gambar label; harga, % diskaun, B×F×, “X untuk RM” dan saiz dibaca (Tesseract.js, dalam telefon) dan diisi ke kalkulator untuk disemak.
+- **Troli & bajet** *(v1.1)* — senarai belian dengan kuantiti, jumlah, penjimatan, baki bajet dan jumlah tunai dibundarkan ke 5 sen.
+- **Kongsi ke WhatsApp** *(v1.1)* — keputusan & senarai belian sebagai gambar (Web Share) atau teks.
 - **Diskaun peratus** — harga jualan & penjimatan; **diskaun tambahan** (bertindih) yang menunjukkan 20% + 10% = 28%.
 - **Peratus songsang** — cari harga asal daripada harga jualan, dengan amaran kesilapan biasa.
 - **Beli X Percuma Y**, **X untuk RM T**, **item ke-2 d% diskaun** — harga sebenar sepek, penjimatan RM & %.
@@ -26,7 +29,7 @@ Web app percuma untuk menyemak sama ada **promosi pasar raya benar-benar berbalo
 | `docs/app/manifest.json`, `sw.js`, `ikon-*.png` | Pemasangan di telefon & luar talian |
 | `docs/derma-qr.png` | QR DuitNow untuk derma |
 
-Tiada pelayan atau Apps Script — semuanya berjalan dalam pelayar. Simpanan (*Sampel* & bahasa) dalam `localStorage` peranti.
+Tiada pelayan atau Apps Script — semuanya berjalan dalam pelayar. Simpanan (*Sampel*, troli & bahasa) dalam `localStorage` peranti. Imbas label memuat Tesseract.js daripada jsDelivr pada kali pertama.
 
 ## Terbitkan (GitHub Pages)
 
