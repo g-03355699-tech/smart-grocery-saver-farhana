@@ -1,5 +1,5 @@
 // Smart Grocery Saver — simpan fail app untuk kegunaan luar talian (cth. di pasar raya tanpa liputan).
-const CACHE = 'sgs-v1.1.0';
+const CACHE = 'sgs-v1.1.1';
 const FAIL = ['./', './index.html', './manifest.json', './ikon-192.png', './ikon-512.png', './ikon-180.png', '../derma-qr.png'];
 
 self.addEventListener('install', e => {
