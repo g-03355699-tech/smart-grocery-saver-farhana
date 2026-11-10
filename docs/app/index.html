@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Kalkulator promosi pasar raya: diskaun peratus, Beli 1 Percuma 1, pek berbilang dan kadar unit — dengan langkah kerja.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="ikon-180.png">
+<link rel="icon" type="image/png" href="ikon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Grocery Saver">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#12386b">
+<title>Smart Grocery Saver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #12386b; --navy-gelap: #0c2a52; --latar: #eef1f5; --kad: #fff;
+    --teks: #1b1f24; --kelabu: #5f6670; --garis: #c9ced6; --jubin: #f2f4f7;
+    --merah: #d93025; --hijau: #1e7a3a; --lencana: #e3e8ef; --kuning: #e8a400; --biru: #2a5ea8; --ungu: #6b4fa8;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: "Poppins", system-ui, sans-serif; color: var(--teks); background: var(--latar);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(18,56,107,.05) 0 120px, transparent 121px),
+      radial-gradient(circle at 85% 75%, rgba(18,56,107,.05) 0 160px, transparent 161px);
+    min-height: 100vh; padding-bottom: 76px;
+  }
+  svg.ik { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7;
+           stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  /* Header */
+  header { background: var(--navy); color: #fff; padding: calc(14px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 14px calc(16px + env(safe-area-inset-left)); position: sticky; top: 0; z-index: 20; }
+  header .dalam { max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+  header svg.logo { width: 52px; height: 52px; color: #fff; flex-shrink: 0; }
+  header h1 { margin: 0; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  header .sub { font-size: .75rem; color: rgba(255,255,255,.75); margin-top: 2px; }
+  header .versi { font-size: .68rem; font-weight: 500; background: rgba(255,255,255,.16); color: rgba(255,255,255,.9);
+                  padding: 2px 8px; border-radius: 999px; letter-spacing: .3px; }
+  header .kanan-h { margin-left: auto; display: flex; gap: 6px; }
+  .btn-h { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 8px;
+           height: 34px; min-width: 34px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+           padding: 0 8px; font-family: inherit; font-weight: 600; font-size: .78rem; }
+  .btn-h:hover { background: rgba(255,255,255,.24); }
+
+  main { max-width: 640px; margin: 0 auto; padding: 12px; }
+  .kad { background: var(--kad); border-radius: 16px; padding: 18px 16px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(16,32,64,.08); }
+  .kad { scroll-margin-top: calc(92px + env(safe-area-inset-top)); }
+  .kad h2 { margin: 0 0 12px; font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .kad h2 svg.ik { color: var(--navy); }
+  .kepala-kad { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .kepala-kad h2 { margin: 0; }
+  .kecil { font-size: .82rem; color: var(--kelabu); }
+  .nota { font-size: .75rem; color: var(--kelabu); margin-top: 6px; }
+  .tersembunyi { display: none !important; }
+
+  /* Hero */
+  .hero { background: linear-gradient(135deg, #12386b 0%, #1d4f8f 100%); color: #fff; position: relative; overflow: hidden; }
+  .hero h2 { color: #fff; font-size: 1.2rem; margin-bottom: 6px; }
+  .hero p { margin: 0; font-size: .86rem; color: rgba(255,255,255,.85); line-height: 1.55; max-width: 78%; }
+  .hero svg.hiasan { position: absolute; right: -14px; bottom: -14px; width: 120px; height: 120px; color: rgba(255,255,255,.14); }
+  .hero .chip-hero { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.14); border-radius: 999px;
+                     padding: 4px 10px; font-size: .74rem; margin-top: 12px; }
+
+  /* Pilihan kalkulator */
+  .pilihan { display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--lencana); }
+  .pilihan:last-child { border-bottom: 0; padding-bottom: 0; }
+  .pilihan:first-of-type { padding-top: 0; }
+  .bulat { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .bulat svg.ik { width: 24px; height: 24px; }
+  .bulat.p { background: #e7eef8; color: var(--navy); } .bulat.b { background: #e6f4ea; color: var(--hijau); }
+  .bulat.s { background: #fff6dc; color: #7a5500; } .bulat.l { background: #f0ebf9; color: var(--ungu); }
+  .pilihan .isi { flex: 1; min-width: 0; }
+  .pilihan b { font-size: .95rem; display: block; }
+  .pilihan p { margin: 2px 0 6px; font-size: .8rem; color: #3b4350; line-height: 1.5; }
+  .lencana { font-size: .68rem; font-weight: 500; background: var(--lencana); color: #3b4350; padding: 3px 8px; border-radius: 6px; display: inline-block; }
+  .lencana-baris { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pilihan .btn { margin-top: 10px; }
+  ol.langkah { margin: 0; padding-left: 20px; font-size: .86rem; line-height: 1.8; color: #3b4350; }
+
+  /* Medan input */
+  label.tajuk { display: block; font-size: .85rem; color: var(--teks); margin: 12px 0 6px; }
+  label.tajuk i { font-style: normal; color: var(--kelabu); font-size: .75rem; }
+  .medan { position: relative; min-width: 0; }
+  .medan > .awalan, .medan > .akhiran { position: absolute; top: 50%; transform: translateY(-50%); color: #3b4350;
+                                         pointer-events: none; font-size: .9rem; font-weight: 500; }
+  .medan > .awalan { left: 12px; } .medan > .akhiran { right: 12px; }
+  .medan > svg.ik { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #3b4350; pointer-events: none; }
+  .medan.ada-awalan input { padding-left: 44px; } .medan.ada-ikon input { padding-left: 42px; }
+  .medan.ada-akhiran input { padding-right: 34px; }
+  input, select {
+    width: 100%; padding: 11px 12px; font-size: .95rem; border: 1px solid var(--garis); border-radius: 10px;
+    font-family: inherit; color: var(--teks); background: #fff; height: 46px; display: block; min-width: 0;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(18,56,107,.15); }
+  input::placeholder { color: #9aa1ab; }
+  input.salah { border-color: var(--merah); box-shadow: 0 0 0 3px rgba(217,48,37,.12); }
+  input:disabled { background: var(--jubin); color: var(--kelabu); }
+  select { appearance: none; -webkit-appearance: none; padding-right: 36px;
+           background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b4350' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center / 16px; }
+  .baris { display: flex; gap: 10px; }
+  .baris > * { flex: 1; min-width: 0; }
+  .baris > .sempit { flex: 0 0 96px; }
+  .pilih-kecil { height: 36px; font-size: .82rem; width: auto; max-width: 55%; padding: 0 32px 0 10px; }
+
+  /* Togol mod */
+  .yt { display: flex; gap: 6px; }
+  .yt button { flex: 1; min-height: 46px; border: 1.5px solid var(--garis); border-radius: 10px; background: #fff; cursor: pointer;
+               font-weight: 500; font-family: inherit; font-size: .8rem; color: var(--teks); padding: 6px 6px; line-height: 1.3; }
+  .yt button.on { border-color: var(--navy); background: #e7eef8; color: var(--navy); font-weight: 600; }
+  .yt.tiga button { font-size: .76rem; }
+
+  .pantas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .pantas button { font-family: inherit; font-size: .78rem; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--garis);
+                   background: #fff; cursor: pointer; color: var(--teks); }
+  .pantas button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .pantas button i { font-style: normal; opacity: .7; margin-left: 2px; }
+
+  /* Butang */
+  button { font-family: inherit; }
+  .btn { padding: 12px 16px; font-size: .95rem; border: 0; border-radius: 10px; cursor: pointer; background: var(--navy); color: #fff;
+         font-weight: 600; width: 100%; margin-top: 12px; box-shadow: 0 2px 4px rgba(12,42,82,.25);
+         display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+  .btn:hover { background: var(--navy-gelap); }
+  .btn.sekunder { background: var(--lencana); color: #3b4350; box-shadow: none; font-weight: 500; }
+  .btn.sekunder:hover { background: #d6dde7; }
+  .btn.garis { background: #fff; color: var(--navy); border: 1.5px dashed var(--navy); box-shadow: none; }
+  .btn.garis:hover { background: #f3f6fb; }
+  .btn.wa { background: #1f9d55; } .btn.wa:hover { background: #18834a; }
+  .btn.merah { background: var(--merah); box-shadow: none; } .btn.merah:hover { background: #b3261e; }
+  .btn.kecil-b { width: auto; margin-top: 0; padding: 8px 12px; font-size: .82rem; }
+  .pautan, .padam { background: none; border: 0; cursor: pointer; font-size: .8rem; display: inline-flex; align-items: center; gap: 3px;
+                    padding: 2px 0; color: var(--navy); font-family: inherit; font-weight: 500; }
+  .padam { color: var(--merah); }
+  .pautan svg.ik, .padam svg.ik { width: 15px; height: 15px; }
+
+  /* Keputusan */
+  .stat3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 12px; }
+  .stat3 > div { background: var(--jubin); border-radius: 10px; padding: 10px 8px; min-width: 0; }
+  .stat3 b { display: block; font-size: clamp(.82rem, 3.8vw, 1.05rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .stat3 span { font-size: .7rem; color: var(--kelabu); display: block; line-height: 1.3; }
+  .stat3 .hijau b { color: var(--hijau); } .stat3 .merah b { color: var(--merah); } .stat3 .navy b { color: var(--navy); }
+  .stat3 .utama { background: #e7eef8; }
+  .langkah-kerja { counter-reset: lk; margin: 0; padding: 0; list-style: none; }
+  .langkah-kerja li { counter-increment: lk; position: relative; padding: 8px 10px 8px 40px; background: var(--jubin);
+                      border-radius: 10px; margin-bottom: 6px; font-size: .84rem; line-height: 1.5; color: #2b313a; }
+  .langkah-kerja li::before { content: counter(lk); position: absolute; left: 10px; top: 8px; width: 22px; height: 22px; border-radius: 50%;
+                              background: var(--navy); color: #fff; font-size: .72rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .langkah-kerja li.semak-l { background: #e6f4ea; }
+  .langkah-kerja li.semak-l::before { content: "✓"; background: var(--hijau); }
+  .langkah-kerja li.silap { background: #fff6dc; }
+  .langkah-kerja li.silap::before { content: "!"; background: var(--kuning); }
+  .langkah-kerja code { font-family: inherit; font-weight: 600; color: var(--navy); white-space: nowrap; }
+  .banner { display: flex; gap: 10px; align-items: flex-start; border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; font-size: .84rem; line-height: 1.5; }
+  .banner svg.ik { width: 20px; height: 20px; margin-top: 1px; }
+  .banner.ok { background: #e6f4ea; color: #175f2d; border: 1px solid #bfe3c9; }
+  .banner.info { background: #eef3fa; color: #2c4a73; border: 1px solid #d3deee; }
+  .banner.amaran { background: #fff6dc; color: #7a5500; border: 1px solid #f2d27a; }
+  .banner.buruk { background: #fde8e6; color: #a5221a; border: 1px solid #f3b2ab; }
+  h3.sub-h { font-size: .9rem; margin: 14px 0 8px; font-weight: 600; }
+  .bandingan { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .bandingan > div { border: 1.5px solid var(--garis); border-radius: 12px; padding: 10px; text-align: center; }
+  .bandingan > div.menang { border-color: var(--hijau); background: #f3faf5; }
+  .bandingan span { display: block; font-size: .72rem; color: var(--kelabu); }
+  .bandingan b { display: block; font-size: 1rem; margin: 2px 0; }
+  .bandingan .mahkota { font-size: .68rem; font-weight: 600; color: var(--hijau); }
+
+  /* Senarai sampel */
+  .rekod { display: flex; justify-content: space-between; gap: 10px; background: var(--jubin); border-left: 4px solid var(--navy);
+           border-radius: 4px 10px 10px 4px; padding: 10px 12px; margin-bottom: 8px; }
+  .rekod.pct { border-left-color: var(--navy); } .rekod.bxfy { border-left-color: var(--hijau); }
+  .rekod.multi { border-left-color: var(--kuning); } .rekod.second { border-left-color: var(--ungu); }
+  .rekod.terbaik { background: #eef7f1; }
+  .rekod .tajuk-r { font-weight: 600; font-size: .9rem; }
+  .rekod .meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .76rem; color: #3b4350; margin-top: 4px; }
+  .rekod .meta span { display: inline-flex; align-items: center; gap: 4px; }
+  .rekod .meta svg.ik { width: 14px; height: 14px; }
+  .rekod .kanan { text-align: right; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+  .rekod .jimat { color: var(--hijau); font-weight: 600; white-space: nowrap; font-size: .9rem; }
+  .rekod .jimat.merah { color: var(--merah); }
+  .tindakan { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+  .status { font-size: .68rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .status.pct { background: #e7eef8; color: var(--navy); } .status.bxfy { background: #e6f4ea; color: var(--hijau); }
+  .status.multi { background: #fff6dc; color: #7a5500; } .status.second { background: #f0ebf9; color: var(--ungu); }
+  .status.mine { background: #fbe9f1; color: #9c2a62; }
+  .kosong { text-align: center; color: var(--kelabu); font-size: .85rem; padding: 18px 8px; }
+
+  /* Belajar */
+  details.lipat { border-bottom: 1px solid var(--lencana); padding: 12px 0; }
+  details.lipat:last-child { border-bottom: 0; padding-bottom: 0; }
+  details.lipat:first-of-type { padding-top: 0; }
+  details.lipat summary { cursor: pointer; font-weight: 600; font-size: .92rem; list-style: none; display: flex; align-items: center; gap: 10px; }
+  details.lipat summary::-webkit-details-marker { display: none; }
+  details.lipat summary .no { width: 26px; height: 26px; border-radius: 8px; background: #e7eef8; color: var(--navy); font-size: .78rem;
+                              display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  details.lipat summary::after { content: "▾"; color: var(--kelabu); margin-left: auto; }
+  details.lipat[open] summary::after { content: "▴"; }
+  .pelajaran { font-size: .86rem; line-height: 1.65; color: #2b313a; padding-top: 8px; }
+  .pelajaran p { margin: 0 0 8px; }
+  .formula { background: #e7eef8; color: var(--navy); border-radius: 10px; padding: 10px 12px; font-weight: 600; margin: 8px 0; font-size: .86rem; }
+  .contoh { background: var(--jubin); border-radius: 10px; padding: 10px 12px; margin: 8px 0; font-size: .83rem; }
+  .contoh b { color: var(--navy); }
+  .cuba { border: 1.5px dashed var(--garis); border-radius: 12px; padding: 12px; margin-top: 10px; }
+  .cuba .soalan { font-weight: 500; font-size: .85rem; margin-bottom: 8px; }
+  .cuba .baris { align-items: center; }
+  .cuba .baris .btn { margin-top: 0; }
+  .maklum { font-size: .82rem; margin-top: 8px; border-radius: 8px; padding: 8px 10px; display: none; }
+  .maklum.betul { display: block; background: #e6f4ea; color: var(--hijau); }
+  .maklum.salah { display: block; background: #fde8e6; color: #a5221a; }
+
+  /* Mesej, modal */
+  .mesej { padding: 10px 12px; border-radius: 10px; margin-bottom: 12px; display: none; font-size: .9rem; }
+  .mesej.ok { background: #e6f4ea; color: var(--hijau); display: block; }
+  .mesej.ralat { background: #fce8e6; color: var(--merah); display: block; }
+  .modal { position: fixed; inset: 0; background: rgba(16,24,40,.5); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
+  .modal .kotak { background: #fff; border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,.25); max-height: 92vh; overflow: auto; }
+  .modal h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .modal p { margin: 0 0 6px; font-size: .9rem; color: #3b4350; }
+  .modal .ikon-amaran { width: 44px; height: 44px; border-radius: 50%; background: #fde8e6; color: var(--merah); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  #modalDerma .kotak { text-align: center; }
+  #modalDerma img { width: 100%; max-width: 240px; border-radius: 12px; border: 1px solid var(--garis); margin: 8px auto; display: block; }
+
+  /* Pembangun & footer */
+  .pembangun { max-width: 640px; margin: 4px auto 12px; padding: 0 12px; }
+  .pembangun .kotak-p { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 2px 10px rgba(16,32,64,.08); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .pembangun .maklumat { flex: 1; min-width: 180px; font-size: .85rem; color: var(--kelabu); line-height: 1.5; }
+  .pembangun .maklumat b { color: var(--teks); font-size: .95rem; }
+  .pembangun .maklumat a { color: var(--navy); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+  .pembangun .maklumat svg.ik { width: 15px; height: 15px; }
+  .btn-derma { display: inline-flex; align-items: center; gap: 8px; background: #f2a600; color: #1b1f24; border: 0; border-radius: 10px;
+               padding: 10px 16px; font-family: inherit; font-weight: 600; font-size: .9rem; cursor: pointer; }
+  .btn-derma:hover { background: #e09a00; }
+  .btn-derma svg.ik { width: 18px; height: 18px; }
+  footer { max-width: 640px; margin: 0 auto; padding: 4px 16px 20px; text-align: center; font-size: .76rem; color: var(--kelabu); }
+
+  /* Nav bawah */
+  nav.bawah { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--lencana);
+              box-shadow: 0 -2px 12px rgba(16,32,64,.08); z-index: 30; padding-bottom: env(safe-area-inset-bottom); }
+  nav.bawah .dalam { max-width: 640px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+  nav.bawah a { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px 9px; color: var(--kelabu);
+                text-decoration: none; font-size: .68rem; font-weight: 500; position: relative; }
+  nav.bawah a svg.ik { width: 22px; height: 22px; }
+  nav.bawah a.on { color: var(--navy); font-weight: 600; }
+  nav.bawah a.on::before { content: ""; position: absolute; top: 0; left: 25%; right: 25%; height: 3px; border-radius: 0 0 3px 3px; background: var(--navy); }
+  nav.bawah .bil { position: absolute; top: 4px; left: 54%; background: var(--merah); color: #fff; font-size: .6rem; border-radius: 999px; padding: 0 5px; line-height: 15px; min-width: 15px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="dalam">
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 24a13 13 0 0 1 26 0"/>
+      <path d="M7 24h46l-1.6 8"/>
+      <path d="M10 24l5 24a3 3 0 0 0 3 2.4h14"/>
+      <path d="M19 30v13M26 30v13M33 30v6"/>
+      <circle cx="46" cy="45" r="13" style="fill:#12386b"/>
+      <text x="46" y="49.5" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" stroke="none" font-family="Poppins, sans-serif">%</text>
+    </svg>
+    <div>
+      <h1>Smart Grocery Saver <span class="versi">v1.0</span></h1>
+      <div class="sub" data-t="subTajuk"></div>
+    </div>
+    <div class="kanan-h">
+      <button class="btn-h" id="btnBahasa" onclick="tukarBahasa()" title="Bahasa / Language">BM</button>
+      <a class="btn-h" href="#learn" data-tt="belajar"><span data-ik="buku"></span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="mesej" class="mesej"></div>
+
+  <!-- ================= HOME ================= -->
+  <div id="v-home" class="paparan">
+    <section class="kad hero">
+      <h2 data-t="heroTajuk"></h2>
+      <p data-t="heroTeks"></p>
+      <div class="chip-hero"><span data-ik="sekolah"></span><span data-t="heroChip"></span></div>
+      <svg class="hiasan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+    </section>
+
+    <section class="kad">
+      <h2><span data-ik="kalkulator"></span><span data-t="pilihKalk"></span></h2>
+      <div class="pilihan">
+        <div class="bulat p"><span data-ik="peratus"></span></div>
+        <div class="isi">
+          <b data-t="kPctTajuk"></b>
+          <p data-t="kPctDesc"></p>
+          <div class="lencana-baris"><span class="lencana" data-t="mPeratus"></span><span class="lencana" data-t="mPerpuluhan"></span><span class="lencana" data-t="mSongsang"></span></div>
+          <a class="btn" href="#percent"><span data-t="bukaPct"></span></a>
+        </div>
+      </div>
+      <div class="pilihan">
+        <div class="bulat b"><span data-ik="hadiah"></span></div>
+        <div class="isi">
+          <b data-t="kPekTajuk"></b>
+          <p data-t="kPekDesc"></p>
+          <div class="lencana-baris"><span class="lencana" data-t="mBahagi"></span><span class="lencana" data-t="mNisbah"></span><span class="lencana" data-t="mKadar"></span></div>
+          <a class="btn" href="#b1f1"><span data-t="bukaPek"></span></a>
+        </div>
+      </div>
+      <div class="pilihan">
+        <div class="bulat s"><span data-ik="tag"></span></div>
+        <div class="isi">
+          <b data-t="kSamTajuk"></b>
+          <p data-t="kSamDesc"></p>
+          <a class="btn" href="#samples"><span data-t="bukaSam"></span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="kad">
+      <h2><span data-ik="nota"></span><span data-t="caraGuna"></span></h2>
+      <ol class="langkah">
+        <li data-t="cara1"></li><li data-t="cara2"></li><li data-t="cara3"></li><li data-t="cara4"></li><li data-t="cara5"></li>
+      </ol>
+      <a class="btn garis" href="#learn"><span data-ik="buku"></span><span data-t="belajarDulu"></span></a>
+    </section>
+  </div>
+
+  <!-- ================= PERCENT ================= -->
+  <div id="v-percent" class="paparan tersembunyi">
+    <section class="kad">
+      <h2><span data-ik="peratus"></span><span data-t="kPctTajuk"></span></h2>
+      <div class="yt" id="ytPct">
+        <button data-mod="tahu" class="on" onclick="modPct('tahu')" data-t="modTahu"></button>
+        <button data-mod="jual" onclick="modPct('jual')" data-t="modJual"></button>
+      </div>
+
+      <label class="tajuk"><span data-t="namaBarang"></span> <i data-t="pilihan"></i></label>
+      <div class="medan"><input id="pNama" maxlength="60" data-tp="contohNama"></div>
+
+      <div id="kotakAsal">
+        <label class="tajuk" data-t="hargaAsal"></label>
+        <div class="medan ada-awalan"><span class="awalan">RM</span><input id="pAsal" inputmode="decimal" placeholder="0.00"></div>
+      </div>
+      <div id="kotakJual" class="tersembunyi">
+        <label class="tajuk" data-t="hargaJualLabel"></label>
+        <div class="medan ada-awalan"><span class="awalan">RM</span><input id="pJual" inputmode="decimal" placeholder="0.00"></div>
+      </div>
+
+      <label class="tajuk" data-t="diskaunLabel"></label>
+      <div class="medan ada-akhiran"><input id="pDiskaun" inputmode="decimal" placeholder="20"><span class="akhiran">%</span></div>
+      <div class="pantas" id="pantasPct">
+        <button onclick="setD(10)">10%</button><button onclick="setD(15)">15%</button><button onclick="setD(20)">20%</button>
+        <button onclick="setD(25)">25%</button><button onclick="setD(30)">30%</button><button onclick="setD(50)">50%</button>
+      </div>
+
+      <label class="tajuk"><span data-t="tambahanLabel"></span> <i data-t="pilihan"></i></label>
+      <div class="medan ada-akhiran"><input id="pTambahan" inputmode="decimal" placeholder="0"><span class="akhiran">%</span></div>
+      <div class="nota" data-t="tambahanNota"></div>
+
+      <label class="tajuk"><span data-t="saizPek"></span> <i data-t="pilihanKadar"></i></label>
+      <div class="baris">
+        <div class="medan"><input id="pSaiz" inputmode="decimal" placeholder="500"></div>
+        <select id="pUnit" class="sempit"><option>g</option><option>kg</option><option>ml</option><option>L</option><option value="pcs">pcs</option></select>
+      </div>
+
+      <button class="btn" onclick="kiraPct()"><span data-ik="kalkulator"></span><span data-t="kira"></span></button>
+      <button class="btn sekunder" onclick="kosongPct()" data-t="kosongkan"></button>
+    </section>
+
+    <section class="kad tersembunyi" id="hasilPct"></section>
+  </div>
+
+  <!-- ================= B1F1 ================= -->
+  <div id="v-b1f1" class="paparan tersembunyi">
+    <section class="kad">
+      <h2><span data-ik="hadiah"></span><span data-t="kPekTajuk"></span></h2>
+      <div class="yt tiga" id="ytPek">
+        <button data-mod="bxfy" class="on" onclick="modPek('bxfy')" data-t="jBxfy"></button>
+        <button data-mod="multi" onclick="modPek('multi')" data-t="jMulti"></button>
+        <button data-mod="second" onclick="modPek('second')" data-t="jSecond"></button>
+      </div>
+
+      <label class="tajuk"><span data-t="namaBarang"></span> <i data-t="pilihan"></i></label>
+      <div class="medan"><input id="bNama" maxlength="60" data-tp="contohNama2"></div>
+
+      <label class="tajuk" data-t="hargaSeunit"></label>
+      <div class="medan ada-awalan"><span class="awalan">RM</span><input id="bHarga" inputmode="decimal" placeholder="0.00"></div>
+
+      <label class="tajuk"><span data-t="saizPek"></span> <i data-t="pilihanKadar"></i></label>
+      <div class="baris">
+        <div class="medan"><input id="bSaiz" inputmode="decimal" placeholder="300"></div>
+        <select id="bUnit" class="sempit"><option>g</option><option>kg</option><option>ml</option><option>L</option><option value="pcs">pcs</option></select>
+      </div>
+
+      <div id="kotakBxfy">
+        <div class="baris">
+          <div><label class="tajuk" data-t="beliX"></label><div class="medan"><input id="bX" inputmode="numeric" value="1"></div></div>
+          <div><label class="tajuk" data-t="percumaY"></label><div class="medan"><input id="bY" inputmode="numeric" value="1"></div></div>
+        </div>
+        <div class="pantas">
+          <button onclick="setXY(1,1)">B1F1</button><button onclick="setXY(2,1)">B2F1</button><button onclick="setXY(3,1)">B3F1</button><button onclick="setXY(3,2)">B3F2</button>
+        </div>
+      </div>
+      <div id="kotakMulti" class="tersembunyi">
+        <div class="baris">
+          <div><label class="tajuk" data-t="bilPek"></label><div class="medan"><input id="bN" inputmode="numeric" value="2"></div></div>
+          <div><label class="tajuk" data-t="hargaPromo"></label><div class="medan ada-awalan"><span class="awalan">RM</span><input id="bJumlah" inputmode="decimal" placeholder="0.00"></div></div>
+        </div>
+      </div>
+      <div id="kotakSecond" class="tersembunyi">
+        <label class="tajuk" data-t="diskaunKedua"></label>
+        <div class="medan ada-akhiran"><input id="bD2" inputmode="decimal" value="50"><span class="akhiran">%</span></div>
+      </div>
+
+      <details class="lipat" style="margin-top:14px;border:0;padding:0" id="lipatBanding">
+        <summary style="font-size:.86rem"><span class="no"><span data-ik="timbang"></span></span><span data-t="bandingSaiz"></span></summary>
+        <p class="kecil" data-t="bandingNota" style="margin:6px 0 0"></p>
+        <div class="baris">
+          <div><label class="tajuk" data-t="hargaLain"></label><div class="medan ada-awalan"><span class="awalan">RM</span><input id="bHargaB" inputmode="decimal" placeholder="0.00"></div></div>
+          <div><label class="tajuk"><span data-t="saizLain"></span> <i id="unitB">(g)</i></label><div class="medan"><input id="bSaizB" inputmode="decimal" placeholder="600"></div></div>
+        </div>
+      </details>
+
+      <button class="btn" onclick="kiraPek()"><span data-ik="kalkulator"></span><span data-t="kira"></span></button>
+      <button class="btn sekunder" onclick="kosongPek()" data-t="kosongkan"></button>
+    </section>
+
+    <section class="kad tersembunyi" id="hasilPek"></section>
+  </div>
+
+  <!-- ================= SAMPLES ================= -->
+  <div id="v-samples" class="paparan tersembunyi">
+    <section class="kad">
+      <div class="kepala-kad">
+        <h2><span data-ik="tag"></span><span data-t="kSamTajuk"></span></h2>
+        <select id="susun" class="pilih-kecil" onchange="lukisSampel()">
+          <option value="jimat" data-t="susunJimat"></option>
+          <option value="kadar" data-t="susunKadar"></option>
+          <option value="nama" data-t="susunNama"></option>
+        </select>
+      </div>
+      <p class="kecil" style="margin-top:-4px" data-t="samNota"></p>
+      <div class="pantas" id="tapis"></div>
+      <div id="senaraiSampel" style="margin-top:12px"></div>
+    </section>
+  </div>
+
+  <!-- ================= LEARN ================= -->
+  <div id="v-learn" class="paparan tersembunyi">
+    <section class="kad">
+      <h2><span data-ik="buku"></span><span data-t="belajarTajuk"></span></h2>
+      <p class="kecil" style="margin-top:-4px" data-t="belajarNota"></p>
+      <div id="pelajaran"></div>
+    </section>
+  </div>
+</main>
+
+<div class="pembangun">
+  <div class="kotak-p">
+    <div class="maklumat">
+      <span data-t="dibangunkan"></span><br><b>Nur Ibtisam Farhana</b><br>
+      <a href="https://wa.me/60193002591" target="_blank" rel="noopener"><span data-ik="telefon"></span><span>019-300 2591 (WhatsApp)</span></a>
+    </div>
+    <button class="btn-derma" onclick="$('modalDerma').classList.remove('tersembunyi')"><span data-ik="hati"></span><span data-t="derma"></span></button>
+  </div>
+</div>
+<footer><span data-t="kaki"></span><br><a href="../" style="color:var(--navy)" data-t="panduan"></a> · <a href="https://github.com/g-03355699-tech/smart-grocery-saver-farhana" style="color:var(--navy)" target="_blank" rel="noopener">GitHub</a></footer>
+
+<nav class="bawah">
+  <div class="dalam">
+    <a href="#home" data-v="home"><span data-ik="rumah"></span><span data-t="navHome"></span></a>
+    <a href="#percent" data-v="percent"><span data-ik="peratus"></span><span data-t="navPct"></span></a>
+    <a href="#b1f1" data-v="b1f1"><span data-ik="troli"></span><span>B1F1</span></a>
+    <a href="#samples" data-v="samples"><span data-ik="tag"></span><span data-t="navSam"></span><span class="bil tersembunyi" id="bilSimpan"></span></a>
+    <a href="#learn" data-v="learn"><span data-ik="buku"></span><span data-t="navLearn"></span></a>
+  </div>
+</nav>
+
+<!-- Modal simpan -->
+<div id="modalSimpan" class="modal tersembunyi" onclick="if (event.target === this) tutup('modalSimpan')">
+  <div class="kotak">
+    <h3 data-t="simpanTajuk"></h3>
+    <p class="kecil" data-t="simpanNota"></p>
+    <label class="tajuk" data-t="namaBarang"></label>
+    <div class="medan"><input id="simpanNama" maxlength="60"></div>
+    <div class="baris"><button class="btn sekunder" onclick="tutup('modalSimpan')" data-t="batal"></button><button class="btn" onclick="sahSimpan()" data-t="simpan"></button></div>
+  </div>
+</div>
+
+<!-- Modal padam -->
+<div id="modalPadam" class="modal tersembunyi" onclick="if (event.target === this) tutup('modalPadam')">
+  <div class="kotak">
+    <div class="ikon-amaran"><span data-ik="padam"></span></div>
+    <h3 data-t="padamTajuk"></h3>
+    <p id="padamTeks"></p>
+    <div class="baris"><button class="btn sekunder" onclick="tutup('modalPadam')" data-t="batal"></button><button class="btn merah" onclick="sahPadam()" data-t="padam"></button></div>
+  </div>
+</div>
+
+<!-- Modal derma -->
+<div id="modalDerma" class="modal tersembunyi" onclick="if (event.target === this) tutup('modalDerma')">
+  <div class="kotak" role="dialog" aria-modal="true">
+    <h3 data-t="dermaTajuk"></h3>
+    <p data-t="dermaTeks"></p>
+    <p class="kecil" style="margin:0" data-t="dermaCara"></p>
+    <p style="margin:8px 0 0;font-weight:600;color:var(--teks)"><span data-t="dermaKepada"></span> Nur Ibtisam Farhana</p>
+    <img src="../derma-qr.png" alt="QR DuitNow" loading="lazy">
+    <a class="btn wa" href="https://wa.me/60193002591?text=Salam%2C%20saya%20ingin%20menderma%20untuk%20app%20Smart%20Grocery%20Saver." target="_blank" rel="noopener"><span data-ik="wa"></span><span data-t="hubungiWa"></span></a>
+    <button class="btn sekunder" onclick="tutup('modalDerma')" data-t="tutup"></button>
+  </div>
+</div>
+
+<script>
+/* ---------- Ikon ---------- */
+const IKON = {
+  rumah: '<path d="M4 20V10l8-6 8 6v10z"/><path d="M10 20v-5h4v5"/>',
+  peratus: '<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>',
+  troli: '<path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20.5" r="1"/><circle cx="17" cy="20.5" r="1"/>',
+  tag: '<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+  buku: '<path d="M2 5c3-1.5 6.5-1.5 10 1v14c-3.5-2.5-7-2.5-10-1z"/><path d="M22 5c-3-1.5-6.5-1.5-10 1v14c3.5-2.5 7-2.5 10-1z"/>',
+  hadiah: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13"/><path d="M12 8S10.5 3 7.5 4 9 8 12 8zM12 8s1.5-5 4.5-4S15 8 12 8z"/>',
+  kalkulator: '<rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 6.5h8v3H8z"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 16.5h.01M12 16.5h.01M15.5 16.5h.01"/>',
+  nota: '<path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+  timbang: '<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/>',
+  simpan: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+  muat: '<path d="M12 4v12M7 11l5 5 5-5M4 20h16"/>',
+  padam: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  semak: '<path d="M5 12l5 5 9-10"/>',
+  amaran: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>',
+  mahkota: '<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>',
+  sekolah: '<path d="M3 9l9-5 9 5-9 5z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/>',
+  telefon: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  hati: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+  wa: '<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.2 8.6c-.4 2.9 2.8 6.4 6 6.3l.9-1.5-1.9-1-1 .7a4 4 0 0 1-2-2l.7-1-1-1.9z"/>'
+};
+const ik = n => `<svg class="ik" viewBox="0 0 24 24">${IKON[n] || ''}</svg>`;
+function pasangIkon(akar) {
+  (akar || document).querySelectorAll('[data-ik]').forEach(el => { el.outerHTML = ik(el.dataset.ik); });
+}
+
+/* ---------- Teks dwibahasa ---------- */
+const L = {
+  en: {
+    subTajuk: 'Supermarket promo calculator',
+    heroTajuk: 'Is that promo really a good deal?',
+    heroTeks: 'Type in the numbers from the shelf label and see your real savings in Malaysian Ringgit (RM) — with every working step shown.',
+    heroChip: 'Real-life maths for Form 1–3',
+    pilihKalk: 'Pick a calculator',
+    kPctTajuk: 'Percentage discount',
+    kPctDesc: 'For labels like “20% off”. Finds your savings, and works out the original price backwards if you don’t know it.',
+    kPekTajuk: 'Buy 1 Free 1 & multi-packs',
+    kPekDesc: 'Real price per pack, your savings and the unit rate (RM per 100 g) so you can compare sizes.',
+    kSamTajuk: 'Sample comparison',
+    kSamDesc: 'Browse example supermarket promotions, filter by type, sort by best saving and load one into a calculator.',
+    mPeratus: 'percentages', mPerpuluhan: 'decimals', mSongsang: 'reverse %', mBahagi: 'division', mNisbah: 'ratios', mKadar: 'unit rates',
+    bukaPct: 'Open Percent calculator', bukaPek: 'Open B1F1 calculator', bukaSam: 'See samples',
+    caraGuna: 'How to use it',
+    cara1: 'Choose the calculator that matches your promotion.', cara2: 'Type the numbers from the shelf label.', cara3: 'Tap <b>Calculate</b>.',
+    cara4: 'Read the working steps.', cara5: 'Tap <b>Add to Samples</b> to compare deals.',
+    belajarDulu: 'Learn the maths first', belajar: 'Learn',
+    modTahu: 'I know the original price', modJual: 'I only know the sale price',
+    namaBarang: 'Item name', pilihan: '(optional)', pilihanKadar: '(optional — for unit rate)',
+    contohNama: 'e.g. Jasmine rice 10 kg', contohNama2: 'e.g. Cream crackers',
+    hargaAsal: 'Original price', hargaJualLabel: 'Sale price on the label', diskaunLabel: 'Discount',
+    tambahanLabel: 'Extra discount on top', tambahanNota: 'For “extra 10% off at the counter”. Leave empty if none.',
+    saizPek: 'Pack size', kira: 'Calculate', kosongkan: 'Clear',
+    jBxfy: 'Buy X Free Y', jMulti: 'X for RM __', jSecond: '2nd item % off',
+    hargaSeunit: 'Normal price for 1 pack', beliX: 'Buy (X)', percumaY: 'Free (Y)', bilPek: 'Number of packs', hargaPromo: 'Promo price',
+    diskaunKedua: 'Discount on the 2nd pack',
+    bandingSaiz: 'Compare with another size (optional)', bandingNota: 'Is a bigger pack without promo cheaper? Use the same unit as above.',
+    hargaLain: 'Other pack price', saizLain: 'Other pack size',
+    // hasil
+    hasil: 'Result', langkahKerja: 'Working steps', hargaJual: 'Sale price', andaJimat: 'You save', diskaunSebenar: 'Real % off',
+    asalAnggaran: 'Original price (est.)', kadarUnit: 'Unit rate', bayar: 'You pay', dapat: 'You get', hargaSebenar: 'Real price / pack',
+    pek: 'packs', simpanKeSampel: 'Add to Samples',
+    rPerlu: 'Please fill in {0}.', rPeratus: 'Discount must be more than 0% and less than 100%.', rTambahan: 'Extra discount must be from 0% to less than 100%.',
+    rNombor: '{0} must be a number more than 0.', rBulat: '{0} must be a whole number.', rMulti: 'Number of packs must be at least 2.',
+    rBanding: 'Fill in both the other pack price and size, or leave both empty.', rSaizBanding: 'Fill in the pack size above to compare unit rates.',
+    perUnit: 'per {0}',
+    // langkah peratus
+    s_tukar: 'Change the percentage to a decimal: <code>{0}% = {0} ÷ 100 = {1}</code>',
+    s_jimat: 'Savings = original price × decimal = <code>{0} × {1} = {2}</code>',
+    s_jual: 'Sale price = original price − savings = <code>{0} − {1} = {2}</code>',
+    s_semak: 'Check: you pay <code>100% − {0}% = {1}%</code> of the price → <code>{2} × {3} = {4}</code>',
+    s_d1: 'First discount {0}%: <code>{1} × (1 − {2}) = {3}</code>',
+    s_d2: 'Extra {0}% is taken from the <b>new</b> price: <code>{1} × (1 − {2}) = {3}</code>',
+    s_jumlahStack: 'Total savings = <code>{0} − {1} = {2}</code>, which is <code>{3}%</code> — not {4}%, because the second discount is taken from a smaller price.',
+    s_bayarBhg: 'After {0}% off you pay <code>100% − {0}% = {1}%</code>, so <code>sale price = {2} × original price</code>',
+    s_bayarStack: 'After {0}% and then {1}% off, you pay <code>(1 − {2}) × (1 − {3}) = {4}</code> of the original price',
+    s_asal: 'Original price = sale price ÷ {0} = <code>{1} ÷ {0} = {2}</code>',
+    s_jimat2: 'Savings = original − sale price = <code>{0} − {1} = {2}</code>',
+    s_silap: 'Common mistake: <code>{0} + {1}% = {2}</code> ✗ — that takes {1}% of the smaller sale price, not of the original.',
+    s_anggar: 'Labels round prices to the nearest sen, so the original price is an <b>estimate</b> (±1 sen).',
+    s_kadar: 'Unit rate = price ÷ size × {0} = <code>{1} ÷ {2} × {0} = {3}</code> {4}',
+    // langkah pek
+    s_bxfy1: 'You pay for {0} pack(s): <code>{0} × {1} = {2}</code>',
+    s_bxfy2: 'You take home <code>{0} + {1} = {2}</code> packs',
+    s_multi1: 'You pay the promo price <code>{0}</code> for {1} packs',
+    s_second1: '2nd pack price = <code>{0} × (1 − {1}) = {2}</code>',
+    s_second2: 'You pay <code>{0} + {1} = {2}</code> for 2 packs',
+    s_sebenar: 'Real price per pack = total ÷ packs = <code>{0} ÷ {1} = {2}</code>',
+    s_normal: 'Without promo, {0} packs cost <code>{0} × {1} = {2}</code>',
+    s_jimatPek: 'Savings = <code>{0} − {1} = {2}</code> → <code>{2} ÷ {0} × 100 = {3}%</code> off',
+    s_nisbah: 'As a ratio: you get {0} free out of {1} → <code>{0}/{1} = {2}%</code> off each pack',
+    s_kadarB: 'Other pack: <code>{0} ÷ {1} × {2} = {3}</code> {4}',
+    // banner
+    v_baik: 'Good deal: you save <b>{0}</b> ({1}% off). Only worth it if you will use all {2} packs before they expire.',
+    v_buruk: 'Not a deal! The promo costs <b>{0}</b> more than buying the packs one by one.',
+    v_sama: 'No saving — the promo price is the same as the normal price.',
+    v_pctBaik: 'You save <b>{0}</b> on this item.',
+    v_bandingPromo: 'The promo is cheaper per {0} by <b>{1}</b> — promo wins.',
+    v_bandingLain: 'The other pack is cheaper per {0} by <b>{1}</b> — the promo is not the best deal here.',
+    v_bandingSama: 'Both work out the same per {0}.',
+    promo: 'Promo', lain: 'Other pack', terbaik: 'Cheaper',
+    // sampel
+    susunJimat: 'Biggest saving %', susunKadar: 'Lowest unit rate', susunNama: 'Name A–Z',
+    samNota: 'Example prices for practice only — not real store prices. Your saved calculations appear here too.',
+    tSemua: 'All', tPct: '% off', tBxfy: 'Buy X Free Y', tMulti: 'Multi-pack', tSecond: '2nd item', tMine: 'My saves',
+    muatKalk: 'Load', jimatLbl: 'save {0}%', milikSaya: 'mine', tiadaSampel: 'Nothing here yet. Calculate a promo and tap “Add to Samples”.',
+    terbaikLbl: 'Best saving in this list',
+    lblPct: '{0}% off', lblPctX: '{0}% + extra {1}% off', lblBxfy: 'Buy {0} Free {1}', lblMulti: '{0} for {1}', lblSecond: '2nd at {0}% off',
+    lblAsal: 'was {0}', lblJual: 'now {0}', lblSeunit: '{0} each',
+    dimuat: 'Loaded “{0}” into the calculator.', disimpan: 'Saved to Samples.', dipadam: 'Removed.',
+    simpanTajuk: 'Add to Samples', simpanNota: 'Give it a name so you can compare it with other promos later. Saved on this device only.',
+    padamTajuk: 'Remove this saved item?', padamTeks: '“{0}” will be removed from your Samples.',
+    batal: 'Cancel', simpan: 'Save', padam: 'Remove', tutup: 'Close',
+    // belajar
+    belajarTajuk: 'Learn the maths', belajarNota: 'Six short lessons. Tap a topic, read the example, then try the question.',
+    cubaLbl: 'Try it', semakJwp: 'Check', betul: 'Correct! ✓', salah: 'Not quite — answer: {0}',
+    // nav dll
+    navHome: 'Home', navPct: 'Percent', navSam: 'Samples', navLearn: 'Learn',
+    dibangunkan: 'Developed by', derma: 'Donate',
+    dermaTajuk: 'Support this app ❤️', dermaTeks: 'Smart Grocery Saver is free. If it helps you or your students, a donation helps keep it maintained.',
+    dermaCara: 'Screenshot this QR code, then scan it with your bank or e-wallet app (DuitNow QR).', hubungiWa: 'Contact via WhatsApp', dermaKepada: 'Donation to:',
+    kaki: 'Smart Grocery Saver · Free for learning · Calculations run on your device', panduan: 'Guide &amp; install'
+  },
+  ms: {
+    subTajuk: 'Kalkulator promosi pasar raya',
+    heroTajuk: 'Betulkah promosi itu berbaloi?',
+    heroTeks: 'Masukkan nombor dari label harga di rak dan lihat penjimatan sebenar dalam Ringgit Malaysia (RM) — lengkap dengan langkah kerja.',
+    heroChip: 'Matematik kehidupan sebenar T1–T3',
+    pilihKalk: 'Pilih kalkulator',
+    kPctTajuk: 'Diskaun peratus',
+    kPctDesc: 'Untuk label seperti “20% diskaun”. Kira penjimatan, dan cari harga asal secara songsang jika anda tidak tahu.',
+    kPekTajuk: 'Beli 1 Percuma 1 & pek berbilang',
+    kPekDesc: 'Harga sebenar sepek, penjimatan dan kadar unit (RM setiap 100 g) untuk membandingkan saiz.',
+    kSamTajuk: 'Perbandingan sampel',
+    kSamDesc: 'Lihat contoh promosi pasar raya, tapis ikut jenis, susun ikut penjimatan dan muatkan ke kalkulator.',
+    mPeratus: 'peratus', mPerpuluhan: 'perpuluhan', mSongsang: '% songsang', mBahagi: 'bahagi', mNisbah: 'nisbah', mKadar: 'kadar unit',
+    bukaPct: 'Buka kalkulator Peratus', bukaPek: 'Buka kalkulator B1F1', bukaSam: 'Lihat sampel',
+    caraGuna: 'Cara menggunakan',
+    cara1: 'Pilih kalkulator yang sepadan dengan promosi.', cara2: 'Masukkan nombor dari label harga.', cara3: 'Tekan <b>Kira</b>.',
+    cara4: 'Baca langkah kerja.', cara5: 'Tekan <b>Simpan ke Sampel</b> untuk membandingkan tawaran.',
+    belajarDulu: 'Belajar matematiknya dahulu', belajar: 'Belajar',
+    modTahu: 'Saya tahu harga asal', modJual: 'Saya tahu harga jualan sahaja',
+    namaBarang: 'Nama barang', pilihan: '(pilihan)', pilihanKadar: '(pilihan — untuk kadar unit)',
+    contohNama: 'cth. Beras wangi 10 kg', contohNama2: 'cth. Biskut krim',
+    hargaAsal: 'Harga asal', hargaJualLabel: 'Harga jualan pada label', diskaunLabel: 'Diskaun',
+    tambahanLabel: 'Diskaun tambahan', tambahanNota: 'Untuk “tambahan 10% di kaunter”. Biarkan kosong jika tiada.',
+    saizPek: 'Saiz pek', kira: 'Kira', kosongkan: 'Kosongkan',
+    jBxfy: 'Beli X Percuma Y', jMulti: 'X untuk RM __', jSecond: 'Item ke-2 % diskaun',
+    hargaSeunit: 'Harga biasa untuk 1 pek', beliX: 'Beli (X)', percumaY: 'Percuma (Y)', bilPek: 'Bilangan pek', hargaPromo: 'Harga promosi',
+    diskaunKedua: 'Diskaun untuk pek ke-2',
+    bandingSaiz: 'Bandingkan dengan saiz lain (pilihan)', bandingNota: 'Adakah pek besar tanpa promosi lebih murah? Gunakan unit yang sama seperti di atas.',
+    hargaLain: 'Harga pek lain', saizLain: 'Saiz pek lain',
+    hasil: 'Keputusan', langkahKerja: 'Langkah kerja', hargaJual: 'Harga jualan', andaJimat: 'Anda jimat', diskaunSebenar: '% diskaun sebenar',
+    asalAnggaran: 'Harga asal (anggaran)', kadarUnit: 'Kadar unit', bayar: 'Anda bayar', dapat: 'Anda dapat', hargaSebenar: 'Harga sebenar / pek',
+    pek: 'pek', simpanKeSampel: 'Simpan ke Sampel',
+    rPerlu: 'Sila isi {0}.', rPeratus: 'Diskaun mesti lebih daripada 0% dan kurang daripada 100%.', rTambahan: 'Diskaun tambahan mesti 0% hingga kurang daripada 100%.',
+    rNombor: '{0} mesti nombor lebih daripada 0.', rBulat: '{0} mesti nombor bulat.', rMulti: 'Bilangan pek mesti sekurang-kurangnya 2.',
+    rBanding: 'Isi kedua-dua harga dan saiz pek lain, atau biarkan kedua-duanya kosong.', rSaizBanding: 'Isi saiz pek di atas untuk membandingkan kadar unit.',
+    perUnit: 'setiap {0}',
+    s_tukar: 'Tukar peratus kepada perpuluhan: <code>{0}% = {0} ÷ 100 = {1}</code>',
+    s_jimat: 'Penjimatan = harga asal × perpuluhan = <code>{0} × {1} = {2}</code>',
+    s_jual: 'Harga jualan = harga asal − penjimatan = <code>{0} − {1} = {2}</code>',
+    s_semak: 'Semak: anda bayar <code>100% − {0}% = {1}%</code> daripada harga → <code>{2} × {3} = {4}</code>',
+    s_d1: 'Diskaun pertama {0}%: <code>{1} × (1 − {2}) = {3}</code>',
+    s_d2: 'Tambahan {0}% diambil daripada harga <b>baharu</b>: <code>{1} × (1 − {2}) = {3}</code>',
+    s_jumlahStack: 'Jumlah penjimatan = <code>{0} − {1} = {2}</code>, iaitu <code>{3}%</code> — bukan {4}%, kerana diskaun kedua diambil daripada harga yang lebih kecil.',
+    s_bayarBhg: 'Selepas diskaun {0}% anda bayar <code>100% − {0}% = {1}%</code>, jadi <code>harga jualan = {2} × harga asal</code>',
+    s_bayarStack: 'Selepas diskaun {0}% dan kemudian {1}%, anda bayar <code>(1 − {2}) × (1 − {3}) = {4}</code> daripada harga asal',
+    s_asal: 'Harga asal = harga jualan ÷ {0} = <code>{1} ÷ {0} = {2}</code>',
+    s_jimat2: 'Penjimatan = harga asal − harga jualan = <code>{0} − {1} = {2}</code>',
+    s_silap: 'Kesilapan biasa: <code>{0} + {1}% = {2}</code> ✗ — itu {1}% daripada harga jualan yang lebih kecil, bukan harga asal.',
+    s_anggar: 'Label membundarkan harga kepada sen terdekat, jadi harga asal ialah <b>anggaran</b> (±1 sen).',
+    s_kadar: 'Kadar unit = harga ÷ saiz × {0} = <code>{1} ÷ {2} × {0} = {3}</code> {4}',
+    s_bxfy1: 'Anda bayar untuk {0} pek: <code>{0} × {1} = {2}</code>',
+    s_bxfy2: 'Anda bawa pulang <code>{0} + {1} = {2}</code> pek',
+    s_multi1: 'Anda bayar harga promosi <code>{0}</code> untuk {1} pek',
+    s_second1: 'Harga pek ke-2 = <code>{0} × (1 − {1}) = {2}</code>',
+    s_second2: 'Anda bayar <code>{0} + {1} = {2}</code> untuk 2 pek',
+    s_sebenar: 'Harga sebenar sepek = jumlah ÷ bilangan pek = <code>{0} ÷ {1} = {2}</code>',
+    s_normal: 'Tanpa promosi, {0} pek berharga <code>{0} × {1} = {2}</code>',
+    s_jimatPek: 'Penjimatan = <code>{0} − {1} = {2}</code> → <code>{2} ÷ {0} × 100 = {3}%</code> diskaun',
+    s_nisbah: 'Sebagai nisbah: {0} percuma daripada {1} → <code>{0}/{1} = {2}%</code> diskaun setiap pek',
+    s_kadarB: 'Pek lain: <code>{0} ÷ {1} × {2} = {3}</code> {4}',
+    v_baik: 'Tawaran baik: anda jimat <b>{0}</b> ({1}% diskaun). Berbaloi hanya jika anda akan gunakan kesemua {2} pek sebelum tamat tempoh.',
+    v_buruk: 'Bukan tawaran! Promosi ini <b>{0}</b> lebih mahal daripada membeli pek satu per satu.',
+    v_sama: 'Tiada penjimatan — harga promosi sama dengan harga biasa.',
+    v_pctBaik: 'Anda jimat <b>{0}</b> untuk barang ini.',
+    v_bandingPromo: 'Promosi lebih murah setiap {0} sebanyak <b>{1}</b> — promosi menang.',
+    v_bandingLain: 'Pek lain lebih murah setiap {0} sebanyak <b>{1}</b> — promosi bukan pilihan terbaik di sini.',
+    v_bandingSama: 'Kedua-duanya sama harga setiap {0}.',
+    promo: 'Promosi', lain: 'Pek lain', terbaik: 'Lebih murah',
+    susunJimat: '% jimat tertinggi', susunKadar: 'Kadar unit terendah', susunNama: 'Nama A–Z',
+    samNota: 'Harga contoh untuk latihan sahaja — bukan harga sebenar kedai. Pengiraan yang anda simpan juga dipaparkan di sini.',
+    tSemua: 'Semua', tPct: '% diskaun', tBxfy: 'Beli X Percuma Y', tMulti: 'Pek berbilang', tSecond: 'Item ke-2', tMine: 'Simpanan saya',
+    muatKalk: 'Muat', jimatLbl: 'jimat {0}%', milikSaya: 'saya', tiadaSampel: 'Belum ada apa-apa. Kira satu promosi dan tekan “Simpan ke Sampel”.',
+    terbaikLbl: 'Penjimatan terbaik dalam senarai ini',
+    lblPct: 'diskaun {0}%', lblPctX: 'diskaun {0}% + tambahan {1}%', lblBxfy: 'Beli {0} Percuma {1}', lblMulti: '{0} untuk {1}', lblSecond: 'Ke-2 diskaun {0}%',
+    lblAsal: 'asal {0}', lblJual: 'kini {0}', lblSeunit: '{0} sepek',
+    dimuat: '“{0}” dimuatkan ke kalkulator.', disimpan: 'Disimpan ke Sampel.', dipadam: 'Dibuang.',
+    simpanTajuk: 'Simpan ke Sampel', simpanNota: 'Beri nama supaya boleh dibandingkan dengan promosi lain nanti. Disimpan dalam peranti ini sahaja.',
+    padamTajuk: 'Buang item simpanan ini?', padamTeks: '“{0}” akan dibuang daripada Sampel anda.',
+    batal: 'Batal', simpan: 'Simpan', padam: 'Buang', tutup: 'Tutup',
+    belajarTajuk: 'Belajar matematiknya', belajarNota: 'Enam pelajaran ringkas. Tekan topik, baca contoh, kemudian cuba soalan.',
+    cubaLbl: 'Cuba', semakJwp: 'Semak', betul: 'Betul! ✓', salah: 'Belum tepat — jawapan: {0}',
+    navHome: 'Utama', navPct: 'Peratus', navSam: 'Sampel', navLearn: 'Belajar',
+    dibangunkan: 'Dibangunkan oleh', derma: 'Derma',
+    dermaTajuk: 'Sokong app ini ❤️', dermaTeks: 'Smart Grocery Saver adalah percuma. Jika ia membantu anda atau murid anda, sumbangan anda membantu penyelenggaraannya.',
+    dermaCara: 'Tangkap layar kod QR ini, kemudian imbas melalui app bank atau e-wallet (DuitNow QR).', hubungiWa: 'Hubungi melalui WhatsApp', dermaKepada: 'Derma kepada:',
+    kaki: 'Smart Grocery Saver · Percuma untuk pembelajaran · Pengiraan dibuat dalam peranti anda', panduan: 'Panduan &amp; pasang'
+  }
+};
+
+/* ---------- Pelajaran ---------- */
+const PELAJARAN = {
+  en: [
+    { t: 'What is a percentage?', h: `<p>“Per cent” means <b>out of 100</b>. To use a percentage in a calculation, change it to a decimal by dividing by 100.</p>
+        <div class="formula">20% = 20 ÷ 100 = 0.20 &nbsp;·&nbsp; 5% = 0.05 &nbsp;·&nbsp; 50% = 0.5</div>
+        <div class="contoh"><b>Example:</b> 20% of RM 15.00 = 0.20 × 15.00 = <b>RM 3.00</b></div>`,
+      q: 'What is 25% of RM 16.00? (RM)', a: 4 },
+    { t: 'Finding the sale price', h: `<p>Two ways — both give the same answer:</p>
+        <div class="formula">Way 1: savings = price × %, then sale price = price − savings<br>Way 2: sale price = price × (1 − %)</div>
+        <div class="contoh"><b>Example:</b> RM 40.00 with 30% off<br>Way 1: 40 × 0.30 = 12 → 40 − 12 = <b>RM 28.00</b><br>Way 2: 40 × 0.70 = <b>RM 28.00</b></div>`,
+      q: 'An item costs RM 24.00. It has 15% off. What is the sale price? (RM)', a: 20.4 },
+    { t: 'Working backwards (reverse percentage)', h: `<p>Sometimes the label only shows the sale price. After 25% off you pay 75% of the original, so the sale price = 0.75 × original. Divide to undo it.</p>
+        <div class="formula">original price = sale price ÷ (1 − %)</div>
+        <div class="contoh"><b>Example:</b> sale price RM 30.00 after 25% off → 30 ÷ 0.75 = <b>RM 40.00</b><br>✗ Wrong: 30 + 25% = RM 37.50 (25% of the smaller number)</div>`,
+      q: 'The sale price is RM 18.00 after 25% off. What was the original price? (RM)', a: 24 },
+    { t: 'Stacked discounts', h: `<p>“20% off, plus extra 10% at the counter” is <b>not</b> 30% off. The second discount is taken from the already-reduced price.</p>
+        <div class="formula">you pay = (1 − 0.20) × (1 − 0.10) = 0.80 × 0.90 = 0.72 → 28% off</div>
+        <div class="contoh"><b>Example:</b> RM 50.00 → after 20%: RM 40.00 → after extra 10%: <b>RM 36.00</b> (you save RM 14.00, which is 28%)</div>`,
+      q: '20% off, then an extra 10% off. What is the total % off? (%)', a: 28 },
+    { t: 'Unit rate — comparing pack sizes', h: `<p>Big packs are not always cheaper. Find the price for the <b>same amount</b> — usually per 100 g or per 100 ml.</p>
+        <div class="formula">unit rate = price ÷ size × 100</div>
+        <div class="contoh"><b>Example:</b> 300 g for RM 4.50 → 4.50 ÷ 300 × 100 = RM 1.50 per 100 g<br>800 g for RM 11.20 → 11.20 ÷ 800 × 100 = RM 1.40 per 100 g → <b>bigger pack wins</b></div>`,
+      q: 'A 400 g pack costs RM 6.00. What is the price per 100 g? (RM)', a: 1.5 },
+    { t: 'Buy X Free Y as a ratio', h: `<p>In “Buy 2 Free 1” you take 3 packs but pay for 2. The free part is the ratio <b>free : total</b>.</p>
+        <div class="formula">% off = Y ÷ (X + Y) × 100 &nbsp;·&nbsp; real price per pack = (X × price) ÷ (X + Y)</div>
+        <div class="contoh"><b>Example:</b> Buy 1 Free 1 → 1 ÷ 2 = <b>50% off</b><br>Buy 2 Free 1 → 1 ÷ 3 ≈ <b>33.3% off</b> (less than B1F1!)</div>
+        <p class="kecil">Tip: in Malaysia, cash bills are rounded to the nearest 5 sen at the counter — e.g. RM 7.92 → RM 7.90, RM 7.93 → RM 7.95.</p>`,
+      q: 'Buy 2 Free 1. Each pack is RM 9.00. What is the real price per pack? (RM)', a: 6 }
+  ],
+  ms: [
+    { t: 'Apakah peratus?', h: `<p>“Peratus” bermaksud <b>daripada 100</b>. Untuk mengira, tukar peratus kepada perpuluhan dengan membahagi 100.</p>
+        <div class="formula">20% = 20 ÷ 100 = 0.20 &nbsp;·&nbsp; 5% = 0.05 &nbsp;·&nbsp; 50% = 0.5</div>
+        <div class="contoh"><b>Contoh:</b> 20% daripada RM 15.00 = 0.20 × 15.00 = <b>RM 3.00</b></div>`,
+      q: 'Berapakah 25% daripada RM 16.00? (RM)', a: 4 },
+    { t: 'Mencari harga jualan', h: `<p>Dua cara — kedua-duanya memberi jawapan sama:</p>
+        <div class="formula">Cara 1: penjimatan = harga × %, kemudian harga jualan = harga − penjimatan<br>Cara 2: harga jualan = harga × (1 − %)</div>
+        <div class="contoh"><b>Contoh:</b> RM 40.00 dengan diskaun 30%<br>Cara 1: 40 × 0.30 = 12 → 40 − 12 = <b>RM 28.00</b><br>Cara 2: 40 × 0.70 = <b>RM 28.00</b></div>`,
+      q: 'Harga barang RM 24.00 dengan diskaun 15%. Berapakah harga jualan? (RM)', a: 20.4 },
+    { t: 'Mengira songsang (peratus songsang)', h: `<p>Kadang-kadang label hanya menunjukkan harga jualan. Selepas diskaun 25% anda bayar 75% harga asal, jadi harga jualan = 0.75 × harga asal. Bahagikan untuk mendapatkan semula.</p>
+        <div class="formula">harga asal = harga jualan ÷ (1 − %)</div>
+        <div class="contoh"><b>Contoh:</b> harga jualan RM 30.00 selepas diskaun 25% → 30 ÷ 0.75 = <b>RM 40.00</b><br>✗ Salah: 30 + 25% = RM 37.50 (25% daripada nombor yang lebih kecil)</div>`,
+      q: 'Harga jualan RM 18.00 selepas diskaun 25%. Berapakah harga asal? (RM)', a: 24 },
+    { t: 'Diskaun bertindih', h: `<p>“Diskaun 20%, tambahan 10% di kaunter” <b>bukan</b> diskaun 30%. Diskaun kedua diambil daripada harga yang sudah dikurangkan.</p>
+        <div class="formula">anda bayar = (1 − 0.20) × (1 − 0.10) = 0.80 × 0.90 = 0.72 → diskaun 28%</div>
+        <div class="contoh"><b>Contoh:</b> RM 50.00 → selepas 20%: RM 40.00 → selepas tambahan 10%: <b>RM 36.00</b> (jimat RM 14.00, iaitu 28%)</div>`,
+      q: 'Diskaun 20%, kemudian tambahan 10%. Berapakah jumlah % diskaun? (%)', a: 28 },
+    { t: 'Kadar unit — membandingkan saiz pek', h: `<p>Pek besar tidak semestinya lebih murah. Cari harga untuk <b>kuantiti yang sama</b> — biasanya setiap 100 g atau 100 ml.</p>
+        <div class="formula">kadar unit = harga ÷ saiz × 100</div>
+        <div class="contoh"><b>Contoh:</b> 300 g berharga RM 4.50 → 4.50 ÷ 300 × 100 = RM 1.50 setiap 100 g<br>800 g berharga RM 11.20 → 11.20 ÷ 800 × 100 = RM 1.40 setiap 100 g → <b>pek besar menang</b></div>`,
+      q: 'Pek 400 g berharga RM 6.00. Berapakah harga setiap 100 g? (RM)', a: 1.5 },
+    { t: 'Beli X Percuma Y sebagai nisbah', h: `<p>Dalam “Beli 2 Percuma 1” anda ambil 3 pek tetapi bayar untuk 2. Bahagian percuma ialah nisbah <b>percuma : jumlah</b>.</p>
+        <div class="formula">% diskaun = Y ÷ (X + Y) × 100 &nbsp;·&nbsp; harga sebenar sepek = (X × harga) ÷ (X + Y)</div>
+        <div class="contoh"><b>Contoh:</b> Beli 1 Percuma 1 → 1 ÷ 2 = <b>diskaun 50%</b><br>Beli 2 Percuma 1 → 1 ÷ 3 ≈ <b>diskaun 33.3%</b> (kurang daripada B1F1!)</div>
+        <p class="kecil">Tip: di Malaysia, bil tunai dibundarkan kepada 5 sen terdekat di kaunter — cth. RM 7.92 → RM 7.90, RM 7.93 → RM 7.95.</p>`,
+      q: 'Beli 2 Percuma 1. Setiap pek RM 9.00. Berapakah harga sebenar sepek? (RM)', a: 6 }
+  ]
+};
+
+/* ---------- Sampel contoh (harga rekaan) ---------- */
+const SAMPEL = [
+  { id: 's1', nama: { en: 'Jasmine rice 10 kg', ms: 'Beras wangi 10 kg' }, jenis: 'pct', inp: { mod: 'tahu', asal: 32.90, d: 20, e: 0, saiz: 10, unit: 'kg' } },
+  { id: 's2', nama: { en: 'Cooking oil 5 kg', ms: 'Minyak masak 5 kg' }, jenis: 'pct', inp: { mod: 'tahu', asal: 29.90, d: 15, e: 0, saiz: 5, unit: 'kg' } },
+  { id: 's3', nama: { en: 'Laundry detergent 3.6 kg', ms: 'Detergen 3.6 kg' }, jenis: 'pct', inp: { mod: 'jual', jual: 27.50, d: 25, e: 0, saiz: 3.6, unit: 'kg' } },
+  { id: 's4', nama: { en: 'Chicken nuggets 850 g', ms: 'Nuget ayam 850 g' }, jenis: 'pct', inp: { mod: 'tahu', asal: 18.90, d: 30, e: 10, saiz: 850, unit: 'g' } },
+  { id: 's5', nama: { en: 'Shampoo 750 ml', ms: 'Syampu 750 ml' }, jenis: 'pct', inp: { mod: 'jual', jual: 14.90, d: 40, e: 0, saiz: 750, unit: 'ml' } },
+  { id: 's6', nama: { en: 'Cream crackers 600 g', ms: 'Biskut krim 600 g' }, jenis: 'bxfy', inp: { harga: 12.50, saiz: 600, unit: 'g', x: 1, y: 1 } },
+  { id: 's7', nama: { en: 'Toothpaste 225 g', ms: 'Ubat gigi 225 g' }, jenis: 'bxfy', inp: { harga: 9.90, saiz: 225, unit: 'g', x: 2, y: 1 } },
+  { id: 's8', nama: { en: 'Mineral water 1.5 L', ms: 'Air mineral 1.5 L' }, jenis: 'bxfy', inp: { harga: 2.20, saiz: 1.5, unit: 'L', x: 3, y: 1 } },
+  { id: 's9', nama: { en: 'Fresh milk 1 L', ms: 'Susu segar 1 L' }, jenis: 'multi', inp: { harga: 7.50, saiz: 1, unit: 'L', n: 2, jumlah: 13.50 } },
+  { id: 's10', nama: { en: 'Yogurt 130 g', ms: 'Yogurt 130 g' }, jenis: 'multi', inp: { harga: 2.60, saiz: 130, unit: 'g', n: 4, jumlah: 9.00 } },
+  { id: 's11', nama: { en: 'Wholemeal bread 400 g', ms: 'Roti mil penuh 400 g' }, jenis: 'multi', inp: { harga: 4.20, saiz: 400, unit: 'g', n: 2, jumlah: 8.60 } },
+  { id: 's12', nama: { en: '3-in-1 coffee 600 g', ms: 'Kopi 3 dalam 1 600 g' }, jenis: 'second', inp: { harga: 16.90, saiz: 600, unit: 'g', d2: 50 } },
+  { id: 's13', nama: { en: 'Dishwashing liquid 900 ml', ms: 'Cecair pencuci pinggan 900 ml' }, jenis: 'second', inp: { harga: 6.80, saiz: 900, unit: 'ml', d2: 30 } }
+];
+
+/* ---------- Utiliti ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const r2 = n => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
+const rm = n => 'RM ' + r2(n).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const rm4 = n => 'RM ' + (Math.round(n * 10000) / 10000).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+const nb = (n, dp = 4) => String(Math.round(n * 10 ** dp) / 10 ** dp);
+const pc = n => nb(n, 1);
+const simpanLs = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const bacaLs = k => { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } };
+const baca = id => { const s = String($(id).value || '').trim().replace(',', '.'); return s === '' ? null : Number(s); };
+
+let BAHASA = bacaLs('sgs_bahasa') === 'ms' ? 'ms' : 'en';
+const t = (k, ...a) => {
+  let s = (L[BAHASA][k] != null ? L[BAHASA][k] : (L.en[k] != null ? L.en[k] : k));
+  a.forEach((v, i) => { s = s.split('{' + i + '}').join(v); });
+  return s;
+};
+const namaSampel = s => typeof s.nama === 'string' ? s.nama : (s.nama[BAHASA] || s.nama.en);
+
+let pemasaMesej;
+function mesej(teks, jenis) {
+  const m = $('mesej');
+  m.textContent = teks; m.className = 'mesej ' + (jenis || 'ok');
+  clearTimeout(pemasaMesej);
+  pemasaMesej = setTimeout(() => { m.className = 'mesej'; }, jenis === 'ralat' ? 6000 : 3500);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function tutup(id) { $(id).classList.add('tersembunyi'); }
+function tandaSalah(ids) {
+  document.querySelectorAll('input.salah').forEach(i => i.classList.remove('salah'));
+  (ids || []).forEach(id => $(id) && $(id).classList.add('salah'));
+}
+
+/* ---------- Unit ---------- */
+function asas(saiz, unit) {
+  if (!saiz || saiz <= 0) return null;
+  if (unit === 'kg') return { n: saiz * 1000, per: 100, lbl: '100 g' };
+  if (unit === 'g') return { n: saiz, per: 100, lbl: '100 g' };
+  if (unit === 'L') return { n: saiz * 1000, per: 100, lbl: '100 ml' };
+  if (unit === 'ml') return { n: saiz, per: 100, lbl: '100 ml' };
+  return { n: saiz, per: 1, lbl: 'pc' };
+}
+const unitAsas = u => (u === 'kg' || u === 'g') ? 'g' : (u === 'L' || u === 'ml') ? 'ml' : 'pcs';
+
+/* ---------- Kira: peratus ---------- */
+function hitungPct(i) {
+  const d = i.d / 100, e = (i.e || 0) / 100;
+  const darab = (1 - d) * (1 - e);
+  const eff = 1 - darab;
+  let asal, jual;
+  if (i.mod === 'tahu') { asal = i.asal; jual = asal * darab; } else { jual = i.jual; asal = jual / darab; }
+  const jimat = asal - jual;
+  const b = asas(i.saiz, i.unit);
+  const kadar = b ? jual / b.n * b.per : null;
+  return { asal, jual, jimat, eff: eff * 100, darab, kadar, b };
+}
+function langkahPct(i, r) {
+  const L = [], d = i.d / 100, e = (i.e || 0) / 100;
+  if (i.mod === 'tahu') {
+    if (!e) {
+      L.push(t('s_tukar', nb(i.d), nb(d)));
+      L.push(t('s_jimat', rm(i.asal), nb(d), rm(r.jimat)));
+      L.push(t('s_jual', rm(i.asal), rm(r.jimat), rm(r.jual)));
+      L.push({ k: 'semak-l', h: t('s_semak', nb(i.d), nb(100 - i.d), rm(i.asal), nb(1 - d), rm(r.jual)) });
+    } else {
+      const lepas1 = i.asal * (1 - d);
+      L.push(t('s_d1', nb(i.d), rm(i.asal), nb(d), rm(lepas1)));
+      L.push(t('s_d2', nb(i.e), rm(lepas1), nb(e), rm(r.jual)));
+      L.push({ k: 'silap', h: t('s_jumlahStack', rm(i.asal), rm(r.jual), rm(r.jimat), pc(r.eff), nb(i.d + i.e)) });
+    }
+  } else {
+    if (!e) L.push(t('s_bayarBhg', nb(i.d), nb(100 - i.d), nb(1 - d)));
+    else L.push(t('s_bayarStack', nb(i.d), nb(i.e), nb(d), nb(e), nb(r.darab)));
+    L.push(t('s_asal', nb(r.darab), rm(i.jual), rm(r.asal)));
+    L.push(t('s_jimat2', rm(r.asal), rm(i.jual), rm(r.jimat)));
+    if (!e) L.push({ k: 'silap', h: t('s_silap', rm(i.jual), nb(i.d), rm(i.jual * (1 + d))) });
+    L.push({ k: 'semak-l', h: t('s_anggar') });
+  }
+  if (r.b) L.push(t('s_kadar', r.b.per, rm(r.jual), nb(r.b.n) + ' ' + unitAsas(i.unit), rm4(r.kadar), t('perUnit', r.b.lbl)));
+  return L;
+}
+
+/* ---------- Kira: pek ---------- */
+function hitungPek(i) {
+  let bayar, pek;
+  if (i.jenis === 'bxfy') { bayar = i.x * i.harga; pek = i.x + i.y; }
+  else if (i.jenis === 'multi') { bayar = i.jumlah; pek = i.n; }
+  else { bayar = i.harga + i.harga * (1 - i.d2 / 100); pek = 2; }
+  const normal = pek * i.harga;
+  const jimat = normal - bayar;
+  const pct = normal > 0 ? jimat / normal * 100 : 0;
+  const sebenar = bayar / pek;
+  const b = asas(i.saiz, i.unit);
+  const kadar = b ? sebenar / b.n * b.per : null;
+  const kadarNormal = b ? i.harga / b.n * b.per : null;
+  let kadarB = null, bB = null;
+  if (b && i.hargaB && i.saizB) { bB = asas(i.saizB, i.unit); kadarB = i.hargaB / bB.n * bB.per; }
+  return { bayar, pek, normal, jimat, pct, sebenar, b, kadar, kadarNormal, kadarB, bB };
+}
+function langkahPek(i, r) {
+  const L = [];
+  if (i.jenis === 'bxfy') {
+    L.push(t('s_bxfy1', i.x, rm(i.harga), rm(r.bayar)));
+    L.push(t('s_bxfy2', i.x, i.y, r.pek));
+  } else if (i.jenis === 'multi') {
+    L.push(t('s_multi1', rm(i.jumlah), i.n));
+  } else {
+    const k2 = i.harga * (1 - i.d2 / 100);
+    L.push(t('s_second1', rm(i.harga), nb(i.d2 / 100), rm(k2)));
+    L.push(t('s_second2', rm(i.harga), rm(k2), rm(r.bayar)));
+  }
+  L.push(t('s_sebenar', rm(r.bayar), r.pek, rm4(r.sebenar)));
+  L.push(t('s_normal', r.pek, rm(i.harga), rm(r.normal)));
+  L.push(t('s_jimatPek', rm(r.normal), rm(r.bayar), rm(r.jimat), pc(r.pct)));
+  if (i.jenis === 'bxfy') L.push({ k: 'semak-l', h: t('s_nisbah', i.y, r.pek, pc(i.y / r.pek * 100)) });
+  if (r.b) L.push(t('s_kadar', r.b.per, rm4(r.sebenar), nb(r.b.n) + ' ' + unitAsas(i.unit), rm4(r.kadar), t('perUnit', r.b.lbl)));
+  if (r.kadarB != null) L.push(t('s_kadarB', rm(i.hargaB), nb(r.bB.n) + ' ' + unitAsas(i.unit), r.bB.per, rm4(r.kadarB), t('perUnit', r.bB.lbl)));
+  return L;
+}
+
+function senaraiLangkah(L) {
+  return '<ol class="langkah-kerja">' + L.map(x => typeof x === 'string' ? `<li>${x}</li>` : `<li class="${x.k}">${x.h}</li>`).join('') + '</ol>';
+}
+function banner(jenis, ikon, html) { return `<div class="banner ${jenis}">${ik(ikon)}<div>${html}</div></div>`; }
+
+/* ---------- UI: peratus ---------- */
+let modP = 'tahu', hasilTerakhir = null;
+function modPct(m) {
+  modP = m;
+  document.querySelectorAll('#ytPct button').forEach(b => b.classList.toggle('on', b.dataset.mod === m));
+  $('kotakAsal').classList.toggle('tersembunyi', m !== 'tahu');
+  $('kotakJual').classList.toggle('tersembunyi', m !== 'jual');
+  $('hasilPct').classList.add('tersembunyi');
+}
+function setD(v) { $('pDiskaun').value = v; tandaPantas(); }
+function tandaPantas() {
+  const v = baca('pDiskaun');
+  document.querySelectorAll('#pantasPct button').forEach(b => b.classList.toggle('on', parseFloat(b.textContent) === v));
+}
+function inputPct() {
+  return { mod: modP, asal: baca('pAsal'), jual: baca('pJual'), d: baca('pDiskaun'), e: baca('pTambahan') || 0,
+           saiz: baca('pSaiz'), unit: $('pUnit').value, nama: $('pNama').value.trim() };
+}
+function semakPct(i) {
+  const medanHarga = i.mod === 'tahu' ? 'pAsal' : 'pJual';
+  const nilai = i.mod === 'tahu' ? i.asal : i.jual;
+  const label = i.mod === 'tahu' ? t('hargaAsal') : t('hargaJualLabel');
+  if (nilai == null) return [t('rPerlu', label.toLowerCase()), [medanHarga]];
+  if (!(nilai > 0)) return [t('rNombor', label), [medanHarga]];
+  if (i.d == null) return [t('rPerlu', t('diskaunLabel').toLowerCase()), ['pDiskaun']];
+  if (!(i.d > 0 && i.d < 100)) return [t('rPeratus'), ['pDiskaun']];
+  if (isNaN(i.e) || i.e < 0 || i.e >= 100) return [t('rTambahan'), ['pTambahan']];
+  if (i.saiz != null && !(i.saiz > 0)) return [t('rNombor', t('saizPek')), ['pSaiz']];
+  return null;
+}
+function kiraPct(senyap) {
+  const i = inputPct();
+  const ral = semakPct(i);
+  if (ral) { tandaSalah(ral[1]); if (!senyap) mesej(ral[0], 'ralat'); return; }
+  tandaSalah([]);
+  const r = hitungPct(i);
+  const tahu = i.mod === 'tahu';
+  let h = `<h2>${ik('semak')}<span>${t('hasil')}${i.nama ? ' · ' + esc(i.nama) : ''}</span></h2>`;
+  h += '<div class="stat3">';
+  h += tahu ? `<div class="utama navy"><b>${rm(r.jual)}</b><span>${t('hargaJual')}</span></div>`
+            : `<div class="utama navy"><b>≈ ${rm(r.asal)}</b><span>${t('asalAnggaran')}</span></div>`;
+  h += `<div class="hijau"><b>${rm(r.jimat)}</b><span>${t('andaJimat')}</span></div>`;
+  h += `<div><b>${pc(r.eff)}%</b><span>${t('diskaunSebenar')}</span></div></div>`;
+  h += banner('ok', 'semak', t('v_pctBaik', rm(r.jimat)) + (r.kadar != null ? `<br>${t('kadarUnit')}: <b>${rm4(r.kadar)}</b> ${t('perUnit', r.b.lbl)}` : ''));
+  h += `<h3 class="sub-h">${t('langkahKerja')}</h3>` + senaraiLangkah(langkahPct(i, r));
+  h += `<button class="btn garis" onclick="bukaSimpan('pct')">${ik('simpan')}<span>${t('simpanKeSampel')}</span></button>`;
+  hasilTerakhir = { jenis: 'pct', inp: { mod: i.mod, asal: i.asal, jual: i.jual, d: i.d, e: i.e, saiz: i.saiz, unit: i.unit }, nama: i.nama };
+  const k = $('hasilPct'); k.innerHTML = h; k.classList.remove('tersembunyi');
+  if (!senyap) k.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function kosongPct() {
+  ['pNama', 'pAsal', 'pJual', 'pDiskaun', 'pTambahan', 'pSaiz'].forEach(id => $(id).value = '');
+  tandaSalah([]); tandaPantas(); $('hasilPct').classList.add('tersembunyi');
+}
+
+/* ---------- UI: pek ---------- */
+let modB = 'bxfy';
+function modPek(m) {
+  modB = m;
+  document.querySelectorAll('#ytPek button').forEach(b => b.classList.toggle('on', b.dataset.mod === m));
+  $('kotakBxfy').classList.toggle('tersembunyi', m !== 'bxfy');
+  $('kotakMulti').classList.toggle('tersembunyi', m !== 'multi');
+  $('kotakSecond').classList.toggle('tersembunyi', m !== 'second');
+  $('hasilPek').classList.add('tersembunyi');
+}
+function setXY(x, y) { $('bX').value = x; $('bY').value = y; }
+function inputPek() {
+  return { jenis: modB, nama: $('bNama').value.trim(), harga: baca('bHarga'), saiz: baca('bSaiz'), unit: $('bUnit').value,
+           x: baca('bX'), y: baca('bY'), n: baca('bN'), jumlah: baca('bJumlah'), d2: baca('bD2'),
+           hargaB: baca('bHargaB'), saizB: baca('bSaizB') };
+}
+function semakPek(i) {
+  if (i.harga == null) return [t('rPerlu', t('hargaSeunit').toLowerCase()), ['bHarga']];
+  if (!(i.harga > 0)) return [t('rNombor', t('hargaSeunit')), ['bHarga']];
+  if (i.saiz != null && !(i.saiz > 0)) return [t('rNombor', t('saizPek')), ['bSaiz']];
+  if (i.jenis === 'bxfy') {
+    for (const [v, id, lb] of [[i.x, 'bX', t('beliX')], [i.y, 'bY', t('percumaY')]]) {
+      if (v == null || !(v > 0)) return [t('rNombor', lb), [id]];
+      if (!Number.isInteger(v)) return [t('rBulat', lb), [id]];
+    }
+  } else if (i.jenis === 'multi') {
+    if (i.n == null || !Number.isInteger(i.n)) return [t('rBulat', t('bilPek')), ['bN']];
+    if (i.n < 2) return [t('rMulti'), ['bN']];
+    if (i.jumlah == null || !(i.jumlah > 0)) return [t('rNombor', t('hargaPromo')), ['bJumlah']];
+  } else {
+    if (i.d2 == null || !(i.d2 > 0 && i.d2 <= 100)) return [t('rPeratus'), ['bD2']];
+  }
+  const adaB = i.hargaB != null, adaS = i.saizB != null;
+  if (adaB !== adaS) return [t('rBanding'), [adaB ? 'bSaizB' : 'bHargaB']];
+  if (adaB && (!(i.hargaB > 0) || !(i.saizB > 0))) return [t('rNombor', t('lain')), ['bHargaB', 'bSaizB']];
+  if (adaB && i.saiz == null) return [t('rSaizBanding'), ['bSaiz']];
+  return null;
+}
+function kiraPek(senyap) {
+  const i = inputPek();
+  const ral = semakPek(i);
+  if (ral) { tandaSalah(ral[1]); if (!senyap) mesej(ral[0], 'ralat'); return; }
+  tandaSalah([]);
+  const r = hitungPek(i);
+  let h = `<h2>${ik('semak')}<span>${t('hasil')}${i.nama ? ' · ' + esc(i.nama) : ''}</span></h2>`;
+  h += `<div class="stat3"><div class="utama navy"><b>${rm(r.bayar)}</b><span>${t('bayar')}</span></div>`;
+  h += `<div><b>${r.pek} ${t('pek')}</b><span>${t('dapat')}</span></div>`;
+  h += `<div class="${r.jimat < -0.004 ? 'merah' : 'hijau'}"><b>${rm(r.sebenar)}</b><span>${t('hargaSebenar')}</span></div></div>`;
+  if (r.jimat > 0.004) h += banner('ok', 'semak', t('v_baik', rm(r.jimat), pc(r.pct), r.pek));
+  else if (r.jimat < -0.004) h += banner('buruk', 'amaran', t('v_buruk', rm(-r.jimat)));
+  else h += banner('amaran', 'info', t('v_sama'));
+  if (r.kadarB != null) {
+    const beza = Math.abs(r.kadar - r.kadarB);
+    const promoMenang = r.kadar < r.kadarB - 1e-9, lainMenang = r.kadarB < r.kadar - 1e-9;
+    h += `<div class="bandingan">
+      <div class="${promoMenang ? 'menang' : ''}"><span>${t('promo')}</span><b>${rm4(r.kadar)}</b><span>${t('perUnit', r.b.lbl)}</span>${promoMenang ? `<span class="mahkota">★ ${t('terbaik')}</span>` : ''}</div>
+      <div class="${lainMenang ? 'menang' : ''}"><span>${t('lain')}</span><b>${rm4(r.kadarB)}</b><span>${t('perUnit', r.bB.lbl)}</span>${lainMenang ? `<span class="mahkota">★ ${t('terbaik')}</span>` : ''}</div></div>`;
+    if (promoMenang) h += banner('ok', 'mahkota', t('v_bandingPromo', r.b.lbl, rm4(beza)));
+    else if (lainMenang) h += banner('amaran', 'timbang', t('v_bandingLain', r.b.lbl, rm4(beza)));
+    else h += banner('info', 'timbang', t('v_bandingSama', r.b.lbl));
+  } else if (r.kadar != null) {
+    h += banner('info', 'timbang', `${t('kadarUnit')}: <b>${rm4(r.kadar)}</b> ${t('perUnit', r.b.lbl)} (${t('promo').toLowerCase()}) · ${rm4(r.kadarNormal)} (normal)`);
+  }
+  h += `<h3 class="sub-h">${t('langkahKerja')}</h3>` + senaraiLangkah(langkahPek(i, r));
+  h += `<button class="btn garis" onclick="bukaSimpan('pek')">${ik('simpan')}<span>${t('simpanKeSampel')}</span></button>`;
+  const inp = { harga: i.harga, saiz: i.saiz, unit: i.unit };
+  if (i.jenis === 'bxfy') Object.assign(inp, { x: i.x, y: i.y });
+  if (i.jenis === 'multi') Object.assign(inp, { n: i.n, jumlah: i.jumlah });
+  if (i.jenis === 'second') Object.assign(inp, { d2: i.d2 });
+  hasilTerakhir = { jenis: i.jenis, inp, nama: i.nama };
+  const k = $('hasilPek'); k.innerHTML = h; k.classList.remove('tersembunyi');
+  if (!senyap) k.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function kosongPek() {
+  ['bNama', 'bHarga', 'bSaiz', 'bJumlah', 'bHargaB', 'bSaizB'].forEach(id => $(id).value = '');
+  $('bX').value = 1; $('bY').value = 1; $('bN').value = 2; $('bD2').value = 50;
+  tandaSalah([]); $('hasilPek').classList.add('tersembunyi');
+}
+$('bUnit') && $('bUnit').addEventListener('change', () => { $('unitB').textContent = '(' + $('bUnit').value + ')'; });
+
+/* ---------- Simpanan ---------- */
+function bacaSimpanan() { try { const a = JSON.parse(bacaLs('sgs_simpan') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function tulisSimpanan(a) { simpanLs('sgs_simpan', JSON.stringify(a)); kemasBil(); }
+function kemasBil() {
+  const n = bacaSimpanan().length, el = $('bilSimpan');
+  el.textContent = n; el.classList.toggle('tersembunyi', !n);
+}
+function bukaSimpan() {
+  if (!hasilTerakhir) return;
+  $('simpanNama').value = hasilTerakhir.nama || '';
+  $('modalSimpan').classList.remove('tersembunyi');
+  setTimeout(() => $('simpanNama').focus(), 50);
+}
+function sahSimpan() {
+  const nama = $('simpanNama').value.trim() || (hasilTerakhir.jenis === 'pct' ? t('kPctTajuk') : t('kPekTajuk'));
+  const a = bacaSimpanan();
+  a.unshift({ id: 'm' + Date.now(), nama, jenis: hasilTerakhir.jenis, inp: hasilTerakhir.inp, milik: true });
+  tulisSimpanan(a.slice(0, 50));
+  tutup('modalSimpan'); mesej(t('disimpan'));
+}
+let idPadam = null;
+function padamSimpan(id) {
+  const s = bacaSimpanan().find(x => x.id === id); if (!s) return;
+  idPadam = id; $('padamTeks').textContent = t('padamTeks', s.nama);
+  $('modalPadam').classList.remove('tersembunyi');
+}
+function sahPadam() {
+  tulisSimpanan(bacaSimpanan().filter(x => x.id !== idPadam));
+  tutup('modalPadam'); lukisSampel(); mesej(t('dipadam'));
+}
+
+/* ---------- Sampel ---------- */
+let tapisan = 'semua';
+const JENIS_T = { pct: 'tPct', bxfy: 'tBxfy', multi: 'tMulti', second: 'tSecond' };
+function metrik(s) {
+  if (s.jenis === 'pct') { const r = hitungPct(s.inp); return { pct: r.eff, jimat: r.jimat, kadar: r.kadar, b: r.b, r }; }
+  const r = hitungPek(Object.assign({ jenis: s.jenis }, s.inp));
+  return { pct: r.pct, jimat: r.jimat, kadar: r.kadar, b: r.b, r };
+}
+function labelPromo(s, m) {
+  const i = s.inp;
+  if (s.jenis === 'pct') {
+    const lb = i.e ? t('lblPctX', nb(i.d), nb(i.e)) : t('lblPct', nb(i.d));
+    return lb + ' · ' + (i.mod === 'tahu' ? t('lblAsal', rm(i.asal)) : t('lblJual', rm(i.jual)));
+  }
+  if (s.jenis === 'bxfy') return t('lblBxfy', i.x, i.y) + ' · ' + t('lblSeunit', rm(i.harga));
+  if (s.jenis === 'multi') return t('lblMulti', i.n, rm(i.jumlah)) + ' · ' + t('lblSeunit', rm(i.harga));
+  return t('lblSecond', nb(i.d2)) + ' · ' + t('lblSeunit', rm(i.harga));
+}
+function lukisTapis(semua) {
+  const kira = k => k === 'semua' ? semua.length : k === 'mine' ? semua.filter(s => s.milik).length : semua.filter(s => s.jenis === k).length;
+  const pil = [['semua', 'tSemua'], ['pct', 'tPct'], ['bxfy', 'tBxfy'], ['multi', 'tMulti'], ['second', 'tSecond'], ['mine', 'tMine']];
+  $('tapis').innerHTML = pil.map(([k, lb]) => `<button class="${tapisan === k ? 'on' : ''}" onclick="tapisan='${k}';lukisSampel()">${t(lb)}<i>${kira(k)}</i></button>`).join('');
+}
+function lukisSampel() {
+  const semua = bacaSimpanan().concat(SAMPEL);
+  lukisTapis(semua);
+  let senarai = semua.filter(s => tapisan === 'semua' || (tapisan === 'mine' ? s.milik : s.jenis === tapisan))
+                     .map(s => ({ s, m: metrik(s) }));
+  const susun = $('susun').value;
+  if (susun === 'jimat') senarai.sort((a, b) => b.m.pct - a.m.pct);
+  else if (susun === 'kadar') senarai.sort((a, b) => (a.m.kadar == null) - (b.m.kadar == null) || (a.m.b && b.m.b && a.m.b.lbl !== b.m.b.lbl ? a.m.b.lbl.localeCompare(b.m.b.lbl) : 0) || (a.m.kadar || 0) - (b.m.kadar || 0));
+  else senarai.sort((a, b) => namaSampel(a.s).localeCompare(namaSampel(b.s)));
+  if (!senarai.length) { $('senaraiSampel').innerHTML = `<div class="kosong">${t('tiadaSampel')}</div>`; return; }
+  const terbaikId = senarai.reduce((p, c) => (!p || c.m.pct > p.m.pct) ? c : p, null).s.id;
+  $('senaraiSampel').innerHTML = senarai.map(({ s, m }) => {
+    const terbaik = s.id === terbaikId && senarai.length > 1;
+    return `<div class="rekod ${s.jenis}${terbaik ? ' terbaik' : ''}">
+      <div style="min-width:0">
+        <div class="tajuk-r">${esc(namaSampel(s))}</div>
+        <div class="meta"><span>${ik(s.jenis === 'pct' ? 'peratus' : 'hadiah')}${esc(labelPromo(s, m))}</span></div>
+        <div class="meta">${m.kadar != null ? `<span>${ik('timbang')}${rm4(m.kadar)} ${t('perUnit', m.b.lbl)}</span>` : ''}
+          <span class="status ${s.jenis}">${t(JENIS_T[s.jenis])}</span>${s.milik ? `<span class="status mine">${t('milikSaya')}</span>` : ''}</div>
+        ${terbaik ? `<div class="meta" style="color:var(--hijau);font-weight:600"><span>${ik('mahkota')}${t('terbaikLbl')}</span></div>` : ''}
+      </div>
+      <div class="kanan">
+        <div><div class="jimat ${m.jimat < -0.004 ? 'merah' : ''}">${rm(m.jimat)}</div><div class="kecil" style="font-size:.72rem">${t('jimatLbl', pc(m.pct))}</div></div>
+        <div class="tindakan">
+          <button class="pautan" onclick="muatSampel('${s.id}')">${ik('muat')}${t('muatKalk')}</button>
+          ${s.milik ? `<button class="padam" onclick="padamSimpan('${s.id}')">${ik('padam')}</button>` : ''}
+        </div>
+      </div></div>`;
+  }).join('');
+}
+function muatSampel(id) {
+  const s = bacaSimpanan().concat(SAMPEL).find(x => x.id === id); if (!s) return;
+  const i = s.inp, isi = (el, v) => { $(el).value = v == null ? '' : v; };
+  if (s.jenis === 'pct') {
+    kosongPct(); modPct(i.mod || 'tahu');
+    isi('pNama', namaSampel(s)); isi('pAsal', i.asal); isi('pJual', i.jual); isi('pDiskaun', i.d);
+    isi('pTambahan', i.e || ''); isi('pSaiz', i.saiz); $('pUnit').value = i.unit || 'g'; tandaPantas();
+    location.hash = 'percent'; setTimeout(() => kiraPct(true), 30);
+  } else {
+    kosongPek(); modPek(s.jenis);
+    isi('bNama', namaSampel(s)); isi('bHarga', i.harga); isi('bSaiz', i.saiz); $('bUnit').value = i.unit || 'g';
+    $('unitB').textContent = '(' + $('bUnit').value + ')';
+    if (s.jenis === 'bxfy') { isi('bX', i.x); isi('bY', i.y); }
+    if (s.jenis === 'multi') { isi('bN', i.n); isi('bJumlah', i.jumlah); }
+    if (s.jenis === 'second') isi('bD2', i.d2);
+    location.hash = 'b1f1'; setTimeout(() => kiraPek(true), 30);
+  }
+  mesej(t('dimuat', namaSampel(s)));
+}
+
+/* ---------- Belajar ---------- */
+function lukisPelajaran() {
+  const terbuka = [...document.querySelectorAll('#pelajaran details')].map(d => d.open);
+  $('pelajaran').innerHTML = PELAJARAN[BAHASA].map((p, n) => `
+    <details class="lipat"${terbuka[n] ? ' open' : ''}>
+      <summary><span class="no">${n + 1}</span><span>${p.t}</span></summary>
+      <div class="pelajaran">${p.h}
+        <div class="cuba">
+          <div class="soalan">✏️ ${t('cubaLbl')}: ${p.q}</div>
+          <div class="baris"><div class="medan"><input id="j${n}" inputmode="decimal" placeholder="?" onkeydown="if(event.key==='Enter')semakJawapan(${n})"></div>
+          <button class="btn kecil-b" onclick="semakJawapan(${n})">${t('semakJwp')}</button></div>
+          <div class="maklum" id="m${n}"></div>
+        </div>
+      </div>
+    </details>`).join('');
+}
+function semakJawapan(n) {
+  const v = baca('j' + n), p = PELAJARAN[BAHASA][n], m = $('m' + n);
+  if (v == null || isNaN(v)) { m.className = 'maklum'; return; }
+  const ok = Math.abs(v - p.a) < 0.006;
+  m.className = 'maklum ' + (ok ? 'betul' : 'salah');
+  m.textContent = ok ? t('betul') : t('salah', String(p.a % 1 ? p.a.toFixed(2) : p.a));
+}
+
+/* ---------- Bahasa & navigasi ---------- */
+function terjemah() {
+  document.documentElement.lang = BAHASA === 'ms' ? 'ms' : 'en';
+  document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = t(el.dataset.t); });
+  document.querySelectorAll('[data-tp]').forEach(el => { el.placeholder = t(el.dataset.tp); });
+  document.querySelectorAll('[data-tt]').forEach(el => { el.title = t(el.dataset.tt); });
+  $('btnBahasa').textContent = BAHASA === 'ms' ? 'EN' : 'BM';
+  lukisPelajaran(); lukisSampel();
+  if (!$('hasilPct').classList.contains('tersembunyi')) kiraPct(true);
+  if (!$('hasilPek').classList.contains('tersembunyi')) kiraPek(true);
+}
+function tukarBahasa() { BAHASA = BAHASA === 'ms' ? 'en' : 'ms'; simpanLs('sgs_bahasa', BAHASA); terjemah(); }
+
+const PAPARAN = ['home', 'percent', 'b1f1', 'samples', 'learn'];
+function laluan() {
+  const h = (location.hash || '').replace('#', '');
+  const v = PAPARAN.includes(h) ? h : 'home';
+  PAPARAN.forEach(p => $('v-' + p).classList.toggle('tersembunyi', p !== v));
+  document.querySelectorAll('nav.bawah a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
+  if (v === 'samples') lukisSampel();
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', laluan);
+$('pDiskaun').addEventListener('input', tandaPantas);
+document.querySelectorAll('#v-percent input').forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') kiraPct(); }));
+document.querySelectorAll('#v-b1f1 input').forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') kiraPek(); }));
+$('simpanNama').addEventListener('keydown', e => { if (e.key === 'Enter') sahSimpan(); });
+
+pasangIkon();
+terjemah();
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+kemasBil();
+laluan();
+</script>
+</body>
+</html>
